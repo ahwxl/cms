@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="true">
+
+	<description>模板管理</description>
+	
+    <bean id="freeMarkHibernateDao" class="com.bplow.todo.freemark_ex.dao.FreeMarkHibernateDao"/>
+	<bean id="freeMarkJdbcDao" class="com.bplow.todo.freemark_ex.dao.FreeMarkJdbcDao" parent="baseJdbcDao"/>
+	<bean id="freemarkService" class="com.bplow.todo.freemark_ex.service.FreemarkService" >
+	  <property name="freemarkerConfig" ref="freemarkerConfig"></property>
+	</bean>
+	
+	
+	<bean id="freemarkerConfig" class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
+	</bean>
+	
+	
+
+</beans>

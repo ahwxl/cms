@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+	
+<tiles-definitions>
+	
+	<definition name="showSystemMng" template="/WEB-INF/views/system/managerpart.jsp" />
+	
+	<definition name="roleMng" template="/WEB-INF/views/system/roleMng.jsp" />
+    <definition name="userMng" template="/WEB-INF/views/system/userMng.jsp" />
+    
+    <definition name="menuMng" template="/WEB-INF/views/system/menuMng.jsp" />
+    <definition name="editSysMenuPage" template="/WEB-INF/views/system/editSysMenuPage.jsp" />
+    <definition name="moduleMng" template="/WEB-INF/views/system/moduleMng.jsp" />
+    <definition name="editSysModulePage" template="/WEB-INF/views/system/editSysModulePage.jsp" />
+</tiles-definitions>

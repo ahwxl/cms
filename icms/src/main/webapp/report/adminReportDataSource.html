@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>数据源管理</title>
+<link rel="stylesheet" type="text/css" href="../res/css/ext_icon.css" />
+<link rel="stylesheet" type="text/css" href="../res/extjs/resources/css/ext-all.css" />
+<script type="text/javascript" src="../res/extjs/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="../res/extjs/ext-all.js"></script>
+<script type="text/javascript" src="../res/extjs/ux/ProgressBarPager.js"></script>
+<script type="text/javascript" src="../res/extjs/ux/PanelResizer.js"></script>
+</head>
+<body id='reportDataSourceGrid'>
+</body>
+</html>
+<script type="text/javascript">
+Ext.onReady(function() {
+
+	function queryReportDataSource() {
+		reportDataSourceList_store.baseParams = {
+			name : Ext.getCmp('name').getValue()
+		};
+
+		reportDataSourceList_store.load({
+			params : {
+				start : 0,
+				limit : reportDataSourceList_bbar.pageSize
+			}
+		}); //查询
+	}
+
+	var reportDataSourceAddPan_form = new Ext.form.FormPanel({
+		labelAlign : 'right',
+		bodyStyle : 'padding:5 5 5 5',
+		items : [ {
+			layout : 'column',
+			border : false,
+			items : [ {
+				columnWidth : 1,
+				layout : 'form',
+				labelWidth : 80, // 标签宽度
+				defaultType : 'textfield',
+				border : false,
+				items : [ {
+					fieldLabel : '名字',
+					name : 'name',
+					id : 'name',
+					anchor : '100%'
+				}, {
+					fieldLabel : '网址(URL)',
+					name : 'url',
+					id : 'url',
+					anchor : '100%'
+				}, {
+					fieldLabel : '驱动(Driver)',
+					name : 'driverClassName',
+					id : 'driverClassName',
+					anchor : '100%'
+				}, {
+					fieldLabel : '用户名',
+					name : 'username',
+					id : 'username',
+					anchor : '100%'
+				}, {
+					fieldLabel : '密码',
+					name : 'password',
+					id : 'password',
+					anchor : '100%'
+				}, {
+					fieldLabel : '最大闲置数',
+					name : 'maxIdle',
+					id : 'maxIdle',
+					anchor : '100%'
+				}, {
+					fieldLabel : '最大连接数',
+					name : 'maxActive',
+					id : 'maxActive',
+					anchor : '100%'
+				}, {
+					fieldLabel : '超时',
+					name : 'maxWait',
+					id : 'maxWait',
+					anchor : '100%'
+				}, {
+					fieldLabel : '验证查询',
+					name : 'validationQuery',
+					id : 'validationQuery',
+					anchor : '100%'
+				}, {
+					name : 'id',
+					id : 'id',
+					hidden : true
+				} ]
+			} ]
+		} ]
+	});
+	
+	var reportDataSourceAddPan_windows = new Ext.Window({
+		closeAction : 'hide',
+		title : '添加数据源',
+		layout : 'fit',
+		width : 430,
+		height : 430,
+		closable : true,
+		collapsible : true,
+		maximizable : true,
+		border : false,
+		modal : true,
+		constrain : true,
+		animateTarget : Ext.getBody(),
+		items : [ reportDataSourceAddPan_form ],
+		buttons : [ {
+			text : '提交',
+			handler : function() {
+				submitForm();
+			}
+		}, {
+			text : '取消',
+			handler : function() {
+				reportDataSourceAddPan_windows.hide();
+			}
+		} ]
+	});
+
+	function submitForm() {
+		if (!reportDataSourceAddPan_form.form.isValid())
+			return;
+		reportDataSourceAddPan_type = true;
+		if (reportDataSourceAddPan_type == false) {
+			return;
+		}
+		reportDataSourceAddPan_form.form.submit({
+			url : '../report/saveOrUpdateReportDataSource',
+			waitTitle : '提示',
+			method : 'POST',
+			waitMsg : '正在处理数据,请稍候...',
+			success : function(form, action) {
+				reportDataSourceAddPan_windows.hide();
+				reportDataSourceAddPan_form.form.reset();
+				queryReportDataSource();
+			},
+			failure : function(form, action) {
+				//Ext.MessageBox.alert('提示', '数据保存失败');
+				reportDataSourceAddPan_windows.hide();
+				reportDataSourceAddPan_form.form.reset();
+				queryReportDataSource();
+			}
+		});
+	}
+
+	function reportDataSourceList_deleteRow() {
+		var rows = reportDataSourceList_getSelect();
+		if (rows != 0) {
+			Ext.MessageBox.confirm('提示', '您确认删除当前选择的' + rows.length + '条记录吗？',
+					function(btn) {
+						if (btn == 'yes') {
+							var dataSourceIds = [];
+							for ( var i = 0; i < rows.length; i++) {
+								dataSourceIds.push(rows[i].get('id'));
+							}
+							
+							Ext.Ajax.request({
+								url : '../report/deleteReportDataSource',
+								method : 'post',
+								success : function(result, request) {
+									queryReportDataSource();
+								},
+								failure : function(result, request) {
+									Ext.MessageBox.alert('提示', '请求数据失败！');
+								},
+								sync : true,
+								params : {
+									dataSourceIds : dataSourceIds
+								}
+							});
+						}
+					});
+
+		}
+	}
+
+	var reportDataSourceList_tbar = new Ext.Toolbar({
+		items : [ '数据源名称:', {
+			xtype : 'textfield',
+			id : 'name',
+			name : 'name',
+			emptyText : '请输入数据源名称',
+			width : 150,
+			enableKeyEvents : true,
+			// 响应回车键
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {
+						queryReportDataSource();
+					}
+				}
+			}
+		}, {
+			text : '查询',
+			iconCls : 'page_findIcon',
+			handler : function() {
+				queryReportDataSource();
+			}
+		}, {
+			text : '刷新',
+			iconCls : 'page_refreshIcon',
+			handler : function() {
+				reportDataSourceList_store.reload();
+			}
+		}, '-', {
+			text : '删除',
+			iconCls : 'deleteIcon',
+			handler : function() {
+				reportDataSourceList_deleteRow();
+			}
+
+		}, {
+			text : '添加数据源',
+			iconCls : 'addIcon',
+			handler : function() {
+				reportDataSourceAddPan_form.form.reset();
+				reportDataSourceAddPan_windows.show();
+			}
+		} ]
+	});
+
+	var typeList_pagesize_combo = new Ext.form.ComboBox({
+		name : 'pageSize',
+		triggerAction : 'all',
+		mode : 'local',
+		store : new Ext.data.ArrayStore({
+			fields : [ 'value', 'text' ],
+			data : [ [ 10, '10条/页' ], [ 20, '20条/页' ], [ 50, '50条/页' ],
+					[ 100, '100条/页' ], [ 250, '250条/页' ], [ 500, '500条/页' ] ]
+		}),
+		valueField : 'value',
+		displayField : 'text',
+		value : '20',
+		editable : false,
+		width : 85
+	});
+	var reportDataSourceList_number = parseInt(typeList_pagesize_combo.getValue());
+	typeList_pagesize_combo.on('select', function(comboBox) {
+		reportDataSourceList_bbar.pageSize = parseInt(comboBox.getValue());
+		reportDataSourceList_number = parseInt(comboBox.getValue());
+		reportDataSourceList_store.reload({
+			params : {
+				start : 0,
+				limit : reportDataSourceList_bbar.pageSize
+			}
+		});
+	});
+	var typeList_rownum = new Ext.grid.RowNumberer({
+		header : '序号',
+		width : 40
+	});
+	var typeList_sm = new Ext.grid.CheckboxSelectionModel();
+	var reportDataSourceList_store = new Ext.data.JsonStore({
+		root : 'dataList',
+		totalProperty : 'totalCount',
+		remoteSort : false,
+		fields : [ 'id', 'name','jndi' ],
+		proxy : new Ext.data.HttpProxy({
+			url : '../report/queryReportDataSource'
+		})
+	});
+
+	var reportDataSourceList_bbar = new Ext.PagingToolbar({
+		pageSize : reportDataSourceList_number,
+		store : reportDataSourceList_store,
+		beforePageText : '当前第',
+		afterPageText : '页，共{0}页',
+		lastText : '尾页',
+		nextText : '下一页',
+		prevText : '上一页',
+		firstText : '首页',
+		plugins : new Ext.ux.ProgressBarPager(),
+		displayInfo : true,
+		displayMsg : '当前显示 {0} - {1}条, 共 {2}',
+		emptyMsg : '没有记录',
+		items : [ '-', '&nbsp;&nbsp;', typeList_pagesize_combo ]
+	});
+
+	// Ext.get('grid').getHeight()
+	var reportDataSourceList_grid = new Ext.grid.GridPanel({
+		autoHeight : true,
+		monitorResize : true,
+		title : '数据源',
+		frame : true,
+		autoScroll : true,
+		region : 'center',
+		store : reportDataSourceList_store,
+		disableSelection : false,
+		loadMask : true,
+		columns : [ typeList_rownum, typeList_sm, {
+			header : '数据源ID',
+			dataIndex : 'id',
+			sortable : true
+		}, {
+			header : '数据源名称',
+			dataIndex : 'name',
+			sortable : true
+		}],
+		stripeRows : true,
+		sm : typeList_sm,
+		bbar : reportDataSourceList_bbar,
+		tbar : reportDataSourceList_tbar,
+		viewConfit : {
+			forceFit : true
+		},
+		loadMask : {
+			msg : '正在加载表格数据,请稍等...'
+		}
+	});
+	reportDataSourceList_grid.render('reportDataSourceGrid');
+	reportDataSourceList_store.load({
+		params : {
+			start : 0,
+			limit : reportDataSourceList_number
+		}
+	});
+
+	function reportDataSourceList_getSelect() {
+		var rows = reportDataSourceList_grid.getSelectionModel().getSelections();
+		if (Ext.isEmpty(rows)) {
+			Ext.MessageBox.alert('提示', '您当前没有选中任何数据!');
+			return 0;
+		}
+		return rows;
+	}
+
+	function reportDataSourceList_fillElement(formObj) {
+		var selectRow = reportDataSourceList_getSelect();
+		if (selectRow != 0 && selectRow.length == 1) {
+			formObj.form.setValues(selectRow[0].data);
+			return true;
+		}
+		if (selectRow != 0 && selectRow.length > 1) {
+			Ext.MessageBox.alert('提示', '只允许选择一条记录!');
+			return false;
+		}
+		return false;
+	}
+
+});
+</script>

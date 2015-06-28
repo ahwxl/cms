@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>报表组列表</title>
+<link rel="stylesheet" type="text/css" href="../res/css/ext_icon.css" />
+<link rel="stylesheet" type="text/css" href="../res/extjs/resources/css/ext-all.css" />
+<script type="text/javascript" src="../res/extjs/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="../res/extjs/ext-all.js"></script>
+<script type="text/javascript" src="../res/extjs/ux/ProgressBarPager.js"></script>
+<script type="text/javascript" src="../res/extjs/ux/PanelResizer.js"></script>
+</head>
+<body id='reportGroupGrid'>
+</body>
+</html>
+<script type="text/javascript">
+Ext.onReady(function() {
+
+	function queryReportGroup() {
+		reportGroupList_store.baseParams = {
+			name : Ext.getCmp('name').getValue(),
+			description : Ext.getCmp('description').getValue()
+		};
+
+		reportGroupList_store.load({
+			params : {
+				start : 0,
+				limit : reportGroupList_bbar.pageSize
+			}
+		}); //查询
+	}
+
+
+	var reportGroupList_tbar = new Ext.Toolbar({
+		items : [ '组名称:', {
+			xtype : 'textfield',
+			id : 'name',
+			name : 'name',
+			emptyText : '请输入组名称',
+			width : 150,
+			enableKeyEvents : true,
+			// 响应回车键
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {
+						queryReportGroup();
+					}
+				}
+			}
+		}, '组描述:', {
+			xtype : 'textfield',
+			id : 'description',
+			name : 'description',
+			emptyText : '请输入组描述',
+			width : 150,
+			enableKeyEvents : true,
+			// 响应回车键
+			listeners : {
+				specialkey : function(field, e) {
+					if (e.getKey() == Ext.EventObject.ENTER) {
+						queryReportGroup();
+					}
+				}
+			}
+		}, {
+			text : '查询',
+			iconCls : 'page_findIcon',
+			handler : function() {
+				queryReportGroup();
+			}
+		}, {
+			text : '刷新',
+			iconCls : 'page_refreshIcon',
+			handler : function() {
+				reportGroupList_store.reload();
+			}
+		}, {
+			text : '进入报表列表',
+			iconCls : 'page_edit_1Icon',
+			handler : function() {
+				goReportListPage();
+			}
+		}]
+	});
+	
+	//进入报表列表
+	function goReportListPage() {
+		var rows = reportGroupList_getSelect();
+		if (rows != 0) {
+			if (rows.length == 1) {
+				window.location.href='fontReport.jsp?id='+rows[0].get('id');
+			} else {
+				Ext.MessageBox.alert('提示', '只能选择一个');
+			}
+		}
+	}
+
+	var typeList_pagesize_combo = new Ext.form.ComboBox({
+		name : 'pageSize',
+		triggerAction : 'all',
+		mode : 'local',
+		store : new Ext.data.ArrayStore({
+			fields : [ 'value', 'text' ],
+			data : [ [ 10, '10条/页' ], [ 20, '20条/页' ], [ 50, '50条/页' ],
+					[ 100, '100条/页' ], [ 250, '250条/页' ], [ 500, '500条/页' ] ]
+		}),
+		valueField : 'value',
+		displayField : 'text',
+		value : '20',
+		editable : false,
+		width : 85
+	});
+	var reportGroupList_number = parseInt(typeList_pagesize_combo.getValue());
+	typeList_pagesize_combo.on('select', function(comboBox) {
+		reportGroupList_bbar.pageSize = parseInt(comboBox.getValue());
+		reportGroupList_number = parseInt(comboBox.getValue());
+		reportGroupList_store.reload({
+			params : {
+				start : 0,
+				limit : reportGroupList_bbar.pageSize
+			}
+		});
+	});
+	var typeList_rownum = new Ext.grid.RowNumberer({
+		header : '序号',
+		width : 40
+	});
+	var typeList_sm = new Ext.grid.CheckboxSelectionModel();
+	var reportGroupList_store = new Ext.data.JsonStore({
+		root : 'dataList',
+		totalProperty : 'totalCount',
+		remoteSort : false,
+		fields : [ 'id', 'name', 'description' ],
+		proxy : new Ext.data.HttpProxy({
+			url : '../report/queryReportGroup'
+		})
+	});
+
+	var reportGroupList_bbar = new Ext.PagingToolbar({
+		pageSize : reportGroupList_number,
+		store : reportGroupList_store,
+		beforePageText : '当前第',
+		afterPageText : '页，共{0}页',
+		lastText : '尾页',
+		nextText : '下一页',
+		prevText : '上一页',
+		firstText : '首页',
+		plugins : new Ext.ux.ProgressBarPager(),
+		displayInfo : true,
+		displayMsg : '当前显示 {0} - {1}条, 共 {2}',
+		emptyMsg : '没有记录',
+		items : [ '-', '&nbsp;&nbsp;', typeList_pagesize_combo ]
+	});
+
+	// Ext.get('grid').getHeight()
+	var reportGroupList_grid = new Ext.grid.GridPanel({
+		autoHeight : true,
+		monitorResize : true,
+		title : '报表组',
+		frame : true,
+		autoScroll : true,
+		region : 'center',
+		store : reportGroupList_store,
+		disableSelection : false,
+		loadMask : true,
+		columns : [ typeList_rownum, typeList_sm, {
+			header : '组ID',
+			dataIndex : 'id',
+			sortable : true
+		}, {
+			header : '组名称',
+			dataIndex : 'name',
+			sortable : true
+		}, {
+			header : '组描述',
+			dataIndex : 'description',
+			sortable : true
+		}],
+		stripeRows : true,
+		sm : typeList_sm,
+		bbar : reportGroupList_bbar,
+		tbar : reportGroupList_tbar,
+		viewConfit : {
+			forceFit : true
+		},
+		loadMask : {
+			msg : '正在加载表格数据,请稍等...'
+		}
+	});
+	reportGroupList_grid.render('reportGroupGrid');
+	reportGroupList_store.load({
+		params : {
+			start : 0,
+			limit : reportGroupList_number
+		}
+	});
+
+	function reportGroupList_getSelect() {
+		var rows = reportGroupList_grid.getSelectionModel().getSelections();
+		if (Ext.isEmpty(rows)) {
+			Ext.MessageBox.alert('提示', '您当前没有选中任何数据!');
+			return 0;
+		}
+		return rows;
+	}
+
+	function reportGroupList_fillElement(formObj) {
+		var selectRow = reportGroupList_getSelect();
+		if (selectRow != 0 && selectRow.length == 1) {
+			formObj.form.setValues(selectRow[0].data);
+			return true;
+		}
+		if (selectRow != 0 && selectRow.length > 1) {
+			Ext.MessageBox.alert('提示', '只允许选择一条记录!');
+			return false;
+		}
+		return false;
+	}
+
+});
+</script>

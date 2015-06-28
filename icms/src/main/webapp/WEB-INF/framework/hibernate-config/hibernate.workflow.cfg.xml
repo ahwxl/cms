@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+	<mapping
+		resource="com/bplow/todo/workflow/dao/entity/ProcessDefForm.hbm.xml" />
+		<mapping
+		resource="com/bplow/todo/workflow/dao/entity/TbProcessDefinedType.hbm.xml" />
+		<mapping 
+		resource="com/bplow/todo/workflow/dao/entity/ProcessDefInfo.hbm.xml" />
+	
+</session-factory>
+</hibernate-configuration>

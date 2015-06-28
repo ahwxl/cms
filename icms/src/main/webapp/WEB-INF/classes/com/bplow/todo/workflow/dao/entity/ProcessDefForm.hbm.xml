@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-11-24 14:11:08 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.bplow.todo.workflow.dao.entity.ProcessDefForm" table="fm_forminfo">
+        <id name="formId" type="java.lang.String">
+            <column name="FORM_ID" length="32"/>
+            <generator class="assigned" />
+        </id>
+        <property name="formName" type="java.lang.String">
+            <column name="FORM_NAME" length="100"/>
+        </property>
+        <property name="formType" type="java.lang.String">
+            <column name="FORM_TYPE" length="32"/>
+        </property>
+        <property name="formDesc" type="java.lang.String">
+            <column name="FORM_DESC" length="100"/>
+        </property>
+        <property name="formInfo" type="java.lang.String">
+            <column name="FORM_INFO" />
+        </property>
+    </class>
+</hibernate-mapping>

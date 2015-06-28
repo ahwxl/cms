@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="true">
+
+	<description>系统调度管理模块</description>
+	
+	<bean id="schedulingHibernateDao" class="com.bplow.todo.scheduling.dao.SchedulingHibernateDao"/>
+	<bean id="schedulingJdbcDao" class="com.bplow.todo.scheduling.dao.SchedulingJdbcDao" parent="baseJdbcDao"/>
+	<bean id="schedulingService" class="com.bplow.todo.scheduling.service.SchedulingService" ></bean>
+
+	
+	<bean id="simpleService" class="com.bplow.look.quartz.service.SimpleService" />	
+	
+	<bean id="schedulerService" class="com.bplow.look.quartz.service.SchedulerServiceImpl"></bean>
+	  
+	  
+	<bean id="dymamicShehuler" name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="applicationContextSchedulerContextKey"  value="applicationContextKey" />
+		<property name="configLocation" value="classpath:quartz.properties"/>
+	</bean>
+	
+	<bean id="dmcscheduler" factory-bean="dymamicShehuler" factory-method="getScheduler"/>	
+	
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass">
+		   <value>com.bplow.look.quartz.service.MyQuartzJobBean</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="simpleService">
+				   <ref bean="simpleService" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+</beans>

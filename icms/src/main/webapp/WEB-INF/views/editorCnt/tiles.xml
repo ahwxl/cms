@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+	
+<tiles-definitions>
+	
+	<definition name="addContent" template="/WEB-INF/views/editorCnt/addContent.jsp" />
+	<definition name="addArticle" template="/WEB-INF/views/editorCnt/addArticle.jsp" />
+	
+	<definition name="showImageMngPage" template="/WEB-INF/views/editorCnt/ImageMng.jsp" />
+	
+	<definition name="BrowersImagePop" template="/WEB-INF/views/editorCnt/BrowersImagePop.jsp" />
+	
+	<definition name="showArticle" template="/WEB-INF/views/editorCnt/showArticle.jsp" />
+	
+	<definition name="addTmplFilePage" template="/WEB-INF/views/editorCnt/addTmplFile.jsp" />
+	<definition name="goTmplListPage" template="/WEB-INF/views/editorCnt/showTemplList.jsp" />
+	
+	<definition name="showrightMenu" template="/WEB-INF/views/editorCnt/showrightMenu.jsp" />
+</tiles-definitions>

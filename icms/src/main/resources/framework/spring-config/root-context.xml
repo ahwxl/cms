@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		
+	<!-- Root Context: defines shared resources accessible to all other web components -->
+	
+	<!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入-->	
+	<context:component-scan base-package="com.bplow.look" />
+	
+	<!-- Configures shared data layer 
+	<import resource="data.xml" />-->
+	
+	<!-- Configures shared security layer -->
+	<import resource="security.xml" />
+	<import resource="security/applicationContext-common-authorization.xml" />
+	<import resource="security/applicationContext-authSecurity.xml" />
+	<!-- -->
+	<import resource="ehcashe/ehcashe-context.xml" />
+	<!-- activiti 流程引擎配置-->
+	<import resource="bpm/activiti-context.xml" /> 
+	  
+	<import resource="freemarker/applicationContext-freemarker.xml" />
+	
+	
+</beans>

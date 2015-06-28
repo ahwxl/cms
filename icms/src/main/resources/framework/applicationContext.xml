@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-lazy-init="true">
+
+	<description>Spring公共配置文件</description>
+
+	<!-- 定义受环境影响易变的变量 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<!-- 标准配置 -->
+				<value>classpath*:/framework/application.properties</value>
+				<!-- 本地开发环境配置 -->
+				<value>classpath*:/application.local.properties</value>
+				<!-- 服务器生产环境配置 -->
+				<!-- <value>file:/var/myapp/application.server.properties</value> -->
+			</list>
+		</property>
+	</bean>
+	
+	<!--  
+    <bean id="defaultAnnotationHandlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+    
+    <bean id="annotationMethodHandlerAdapter"  class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >  
+	  <property name="messageConverters">   
+	         <list>
+	             <bean class = "org.springframework.http.converter.StringHttpMessageConverter">   
+	                <property name = "supportedMediaTypes">
+	                      <list>
+	                          <value>text/html;charset=UTF-8</value>
+	                          <value>application/x-www-form-urlencoded;charset=UTF-8</value>
+	                     </list>   
+	                </property>
+	             </bean>   
+	         </list>   
+	   </property>  
+	</bean>
+	
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+ 	    <property name="messageConverters">
+ 	        <list>
+ 	            <bean id="utf8StringHttpMessageConverter" class="com.bplow.look.bass.utils.UTF8StringHttpMessageConverter"/>
+ 	        </list>
+ 	    </property>
+ 	</bean>
+    -->
+	
+	
+	
+    <!--<context:component-scan base-package="com.bplow.look.clientCommentMng" /> -->
+    <!-- Connection Info, 使用P6spy记录sql -->
+	<!-- 数据源配置,在测试环境使用
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>-->
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<!-- Connection Info, 使用P6spy记录sql -->
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="minPoolSize"><value>${jdbc.system.pool.c3p0.minPoolSize}</value></property>
+        <property name="maxPoolSize"><value>${jdbc.system.pool.c3p0.maxPoolSize}</value></property>
+        <property name="maxIdleTime"><value>${jdbc.system.pool.c3p0.maxIdleTime}</value></property>
+        <property name="acquireIncrement"><value>${jdbc.system.pool.c3p0.acquireIncrement}</value></property>
+        <!-- property name="checkoutTimeout"><value>${jdbc.system.pool.c3p0.checkoutTimeout}</value></property> -->
+        <property name="maxStatements"><value>${jdbc.system.pool.c3p0.maxStatements}</value></property>
+        <property name="maxStatementsPerConnection"><value>${jdbc.system.pool.c3p0.maxStatementsPerConnection}</value></property>
+        <property name="acquireRetryAttempts"><value>${jdbc.system.pool.c3p0.acquireRetryAttempts}</value></property>
+	</bean>
+
+    <!-- Connection Info, 使用P6spy记录sql 
+    <bean id="otherdataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">		
+		<property name="driverClass" value="${other_jdbc.driver}" />
+		<property name="jdbcUrl" value="${other_jdbc.url}" />
+		<property name="user" value="${other_jdbc.username}" />
+		<property name="password" value="${other_jdbc.password}" />
+		<property name="minPoolSize"><value>${jdbc.system.pool.c3p0.minPoolSize}</value></property>
+        <property name="maxPoolSize"><value>${jdbc.system.pool.c3p0.maxPoolSize}</value></property>
+        <property name="maxIdleTime"><value>${jdbc.system.pool.c3p0.maxIdleTime}</value></property>
+        <property name="acquireIncrement"><value>${jdbc.system.pool.c3p0.acquireIncrement}</value></property>        
+        <property name="maxStatements"><value>${jdbc.system.pool.c3p0.maxStatements}</value></property>
+        <property name="maxStatementsPerConnection"><value>${jdbc.system.pool.c3p0.maxStatementsPerConnection}</value></property>
+        <property name="acquireRetryAttempts"><value>${jdbc.system.pool.c3p0.acquireRetryAttempts}</value></property>
+	</bean>
+	-->
+
+	<!-- 数据源配置,在生产环境使用应用服务器的数据库连接池 -->
+	<!-- <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ShowcaseDB" /> -->
+
+	<!-- Hibernate配置 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="namingStrategy">
+			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
+		</property>
+		<property name="configLocations">
+		    <list>		        
+                <value>framework/hibernate-config/hibernate.freemark.cfg.xml</value>
+            </list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<!--<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>-->
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+                <prop key="hibernate.query.factory_class">${hibernate.system.query.factory_class}</prop>
+                <prop key="hibernate.default_batch_fetch_size">${hibernate.system.default_batch_fetch_size}</prop>
+                <prop key="hibernate.jdbc.batch_size">${hibernate.system.jdbc.batch_size}</prop>
+                <prop key="hibernate.jdbc.fetch_size">${hibernate.system.jdbc.fetch_size}</prop>
+                <prop key="hibernate.jdbc.use_streams_for_binary">${hibernate.system.jdbc.use_streams_for_binary}</prop>
+                <prop key="hibernate.jdbc.batch_versioned_data">${hibernate.system.jdbc.batch_versioned_data}</prop>
+                <prop key="hibernate.order_updates">${hibernate.system.order_updates}</prop>
+                <!--  <prop key="hibernate.cache.use_query_cache">${hibernate.system.cache.use_query_cache}</prop>-->
+			    <!--<prop key="hibernate.hbm2ddl.auto"></prop>-->
+			</props>
+		</property>
+		<!--<property name="packagesToScan" value="org.springside.examples.showcase.common.entity" />-->
+		<property name="packagesToScan" value="com.bplow.todo" />
+		<property name="lobHandler"><ref bean="oracleLobHandler"/></property>
+		<property name="eventListeners">
+			<map>
+				<entry key="save-update">
+					<list>						
+						<bean class="org.hibernate.event.def.DefaultSaveOrUpdateEventListener" />
+					</list>
+				</entry>
+			</map>
+		</property>		
+	</bean>
+
+	<!-- 事务管理器配置,单数据源事务 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+    
+    
+    <!-- 大字段处理 -->
+    <bean id="defaultLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true"/>
+
+	<!-- LobHandler for Oracle JDBC drivers -->
+	<!-- (refers to the NativeJdbcExtractor above to get access to native OracleConnections) -->
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">
+		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/>
+	</bean>
+
+	<!-- NativeJdbcExtractor for the C3P0 connection pool above -->
+	<!-- (just needed for oracleLobHandler)--> 
+	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.C3P0NativeJdbcExtractor" lazy-init="true"/>
+    
+
+    <!-- jdbc base dao 提供简单的基本操作 -->
+    <bean id="baseJdbcDao" class="com.bplow.look.bass.BaseJdbcDaoSupport" >
+	    <property name="dataSource"><ref bean="dataSource"/></property>
+	    <property name="lobHandler"><ref bean="defaultLobHandler"/></property>
+	</bean>
+	
+	<!-- jdbc base dao 提供简单的基本操作 
+    <bean id="otherBaseJdbcDao" class="com.bplow.look.bass.BaseJdbcDaoSupport" >
+	    <property name="dataSource"><ref bean="otherdataSource"/></property>
+	    <property name="lobHandler"><ref bean="defaultLobHandler"/></property>
+	</bean>
+	-->
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+	<!-- 使用annotation定义AOP -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<!-- perf4j的方面定义 -->
+	<bean id="timingAspect" class="org.perf4j.log4j.aop.TimingAspect" />
+
+    <!-- 新数据源配置 
+    <bean id="othersessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="otherdataSource" />
+		<property name="namingStrategy">
+			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
+		</property>
+		<property name="configLocations">
+		    <list>                
+                <value>/WEB-INF/framework/hibernate-config/hibernate.awardpool.cfg.xml</value>                
+            </list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+                <prop key="hibernate.query.factory_class">${hibernate.system.query.factory_class}</prop>
+                <prop key="hibernate.default_batch_fetch_size">${hibernate.system.default_batch_fetch_size}</prop>
+                <prop key="hibernate.jdbc.batch_size">${hibernate.system.jdbc.batch_size}</prop>
+                <prop key="hibernate.jdbc.fetch_size">${hibernate.system.jdbc.fetch_size}</prop>
+                <prop key="hibernate.jdbc.use_streams_for_binary">${hibernate.system.jdbc.use_streams_for_binary}</prop>
+                <prop key="hibernate.jdbc.batch_versioned_data">${hibernate.system.jdbc.batch_versioned_data}</prop>
+                <prop key="hibernate.order_updates">${hibernate.system.order_updates}</prop>                
+			</props>
+		</property>
+		<property name="eventListeners">
+			<map>
+				<entry key="save-update">
+					<list>
+						<bean class="org.springside.examples.showcase.orm.hibernate.AuditListener" />
+						<bean class="org.hibernate.event.def.DefaultSaveOrUpdateEventListener" />
+					</list>
+				</entry>
+			</map>
+		</property>	
+		<property name="lobHandler"><ref bean="oracleLobHandler"/></property>		
+	</bean>
+	<bean id="othertransactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="othersessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="othersessionFactory" proxy-target-class="true"/>
+	
+	<bean id="othertxManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="otherdataSource"/>
+    </bean>
+    <tx:advice id="othertxAdvice" transaction-manager="othertxManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	-->
+	<!-- 缓存配置 -->
+	
+	
+</beans>

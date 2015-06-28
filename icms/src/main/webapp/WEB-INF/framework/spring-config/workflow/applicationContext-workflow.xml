@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-lazy-init="true">
+
+	<description>表单管理</description>
+	
+    <bean id="workflowHibernateDao" class="com.bplow.todo.workflow.dao.WorkflowHibernateDao"/>
+	<bean id="workflowJdbcDao" class="com.bplow.todo.workflow.dao.WorkflowJdbcDao" parent="baseJdbcDao"/>
+	<bean id="workflowService" class="com.bplow.todo.workflow.service.WorkflowService" ></bean>
+	
+
+</beans>

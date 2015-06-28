@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+	
+<tiles-definitions>
+	
+    <!--报表类别管理 -->
+    <definition name="britReportTypeMng" template="/WEB-INF/views/britReport/britReportTypeMng.jsp" />
+    <!--报表列表管理 -->
+    <definition name="britReportInfoMng" template="/WEB-INF/views/britReport/britReportInfoMng.jsp" />
+     <!--系统调度管理 -->
+    <definition name="schedulingInfoMng" template="/WEB-INF/views/britReport/schedulingInfoMng.jsp" />
+</tiles-definitions>

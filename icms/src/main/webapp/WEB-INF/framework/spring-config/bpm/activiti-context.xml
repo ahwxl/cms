@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:cache="http://www.springframework.org/schema/cache"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+  
+  <!--  
+  <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+  
+    <property name="dataSource" ref="dataSource" />
+    
+    <property name="databaseSchemaUpdate" value="true" />
+    
+    <property name="jobExecutorActivate" value="false" />
+    
+    <property name="mailServerHost" value="mail.my-corp.com" /> 
+    <property name="mailServerPort" value="5025" />    
+  </bean>
+  -->
+  
+  <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+    <property name="dataSource" ref="dataSource" />
+    <property name="transactionManager" ref="transactionManager" />
+    <property name="databaseSchemaUpdate" value="true" />
+    <property name="jobExecutorActivate" value="false" />
+  </bean>
+  
+  <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+    <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+  </bean>
+  
+  <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+  <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+  <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+  <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+  <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+  <bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+  
+  <!-- 报表 -->
+  <bean id="britReportHibernateDao" class="com.bplow.todo.britReport.dao.BritReportHibernateDao"/>
+	<bean id="britReportJdbcDao" class="com.bplow.todo.britReport.dao.BritReportJdbcDao" parent="baseJdbcDao"/>
+	<bean id="britReportService" class="com.bplow.todo.britReport.service.BritReportService" ></bean>
+  
+  <bean id="workflowService" class="com.bplow.todo.workflow.service.WorkflowService" lazy-init="false">
+     <property name="processEngineConfige" ref="processEngineConfiguration"></property>
+     <property name="processEngine" ref="processEngine"></property>
+     <property name="historyService" ref="historyService"></property>
+     
+     <property name="repositoryService" ref="repositoryService"></property>
+     <property name="runtimeService" ref="runtimeService"></property>
+     <property name="taskService" ref="taskService"></property>
+     <property name="formService" ref="formService"></property>
+  </bean>
+  
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+	
+<tiles-definitions>
+	
+	<definition name="showProcessMng" template="/WEB-INF/views/workflow/showProcessMng.jsp" />
+    <definition name="viewProcessInfo" template="/WEB-INF/views/workflow/viewProcessInfo.jsp" />
+    <definition name="viewProcessInsApprove" template="/WEB-INF/views/workflow/viewProcessInsApprove.jsp" />
+    
+    <definition name="processDefinedMng" template="/WEB-INF/views/workflow/processDefinedMng.jsp" />
+    <definition name="processInstanceMng" template="/WEB-INF/views/workflow/processInstanceMng.jsp" />
+    <definition name="taskMng" template="/WEB-INF/views/workflow/taskMng.jsp" />
+    <definition name="showProcessInfo" template="/WEB-INF/views/workflow/showProcessInfo.jsp" />
+    <definition name="createProcessInstancePage" template="/WEB-INF/views/workflow/createProcessInstance.jsp" />
+    <!-- 流程定义设置 -->
+    <definition name="processDefinedSet" template="/WEB-INF/views/workflow/processDefinedSet.jsp" />
+    <!-- 流程表单管理 -->
+    <definition name="processDefFormMng" template="/WEB-INF/views/workflow/processDefFormMng.jsp" />
+    <definition name="processTypeMng" template="/WEB-INF/views/workflow/processTypeMng.jsp" />
+    <definition name="createDefineFormPage" template="/WEB-INF/views/workflow/createDefineFormPage.jsp" />
+</tiles-definitions>
