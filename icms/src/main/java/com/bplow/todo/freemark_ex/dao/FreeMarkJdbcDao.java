@@ -65,7 +65,7 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 		final InputStream cntinputStream = IOUtils.toInputStream(vo.getContent());
 	    final int cntlength = IOUtils.toByteArray(vo.getContent()).length;
 		this.getJdbcTemplate().execute(
-		"INSERT INTO newcms.fm_content (id,content,cnt_caption,second_caption,is_delete_flag,catalog_id,operate_date,click_num) VALUES (?,?,?,?,?,?,?,?)",
+		"INSERT INTO fm_content (id,content,cnt_caption,second_caption,is_delete_flag,catalog_id,operate_date,click_num) VALUES (?,?,?,?,?,?,?,?)",
 		new AbstractLobCreatingPreparedStatementCallback(defaultLobHandler) {
 			protected void setValues(PreparedStatement ps, LobCreator lobCreator) throws SQLException {
 			   ps.setString(1, vo.getId());
@@ -90,7 +90,7 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	 */
 	public FmContent getCntById(String id){
 		
-		String sql = "select a.id, a.content,a.operate_date,a.cnt_caption,a.catalog_id  from newcms.fm_content a where a.id = ? ";
+		String sql = "select a.id, a.content,a.operate_date,a.cnt_caption,a.catalog_id  from fm_content a where a.id = ? ";
 		
 		return this.getJdbcTemplate().queryForObject(sql, new RowMapper() {
 		    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -119,7 +119,7 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	public IPagination getCntList(FmContent vo,int firstResult,int maxResults){
 		
 		SQLEntity sqlEntity = new SQLEntity();
-		sqlEntity.append(" select a.id, a.content,a.operate_date,a.cnt_caption,a.catalog_id  from newcms.fm_content a where 1=1 ");
+		sqlEntity.append(" select a.id, a.content,a.operate_date,a.cnt_caption,a.catalog_id  from fm_content a where 1=1 ");
 		
 		if(StringUtils.isNotBlank(vo.getCatalog_id())){
 			sqlEntity.append(" and a.catalog_id = ? ",vo.getCatalog_id());
