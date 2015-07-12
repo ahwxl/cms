@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,8 +27,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bplow.todo.freemark_ex.dao.entity.FmCatalog;
 import com.bplow.todo.freemark_ex.dao.entity.FmContent;
+import com.bplow.todo.freemark_ex.dao.entity.FmProduct;
 import com.bplow.todo.freemark_ex.dao.entity.TbFreemarkInfo;
 import com.bplow.todo.freemark_ex.service.FreemarkService;
+import com.bplow.todo.freemark_ex.service.ProductService;
 import com.bplow.todo.sysManager.dao.entity.SysDepartment;
 import com.bplow.todo.sysManager.dao.entity.SysRole;
 import com.bplow.todo.sysManager.dao.entity.SysUser;
@@ -43,6 +44,8 @@ public class freemarkAction implements ServletContextAware{
 	public FreemarkService freemarkService;
 	
 	public ServletContext servletContext;
+	@Autowired
+	public ProductService productService;
 	
 	
 	@RequestMapping(value = "/freemark", method = RequestMethod.GET) 
@@ -109,6 +112,19 @@ public class freemarkAction implements ServletContextAware{
 		
 		return "addArticle";
 	}
+	/**
+	 * 添加产品页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/showAddProductPage", method = RequestMethod.GET)
+	public String toAddProductPage(Model model){
+		
+		
+		
+		
+		return "addProduct";
+	}
 	
 	@RequestMapping(value = "/ckfinder/_samples/standalone.html", method = RequestMethod.GET)
 	public String toImageMngPage(Model model){
@@ -143,6 +159,30 @@ public class freemarkAction implements ServletContextAware{
 		
 		return "showArticle";
 	}
+	
+	/**
+	 * 显示产品列表
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/showProduct", method = RequestMethod.GET)
+	public String toProductMngPage(Model model){
+		
+		
+		return "showProduct";
+	}
+	
+	
+	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
+	@ResponseBody
+	public String saveProduct(FmProduct product, HttpServletRequest request,
+			HttpServletResponse response, Model model) throws Exception {
+
+		productService.addProduct(product);
+
+		return "{success:true,info:'操作成功!'}";
+	}
+	
 	
 	@RequestMapping(value = "/showPortal", method = RequestMethod.GET)
 	public String toImageMngPage3(Model model){

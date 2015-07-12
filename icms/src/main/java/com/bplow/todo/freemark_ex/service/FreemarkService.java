@@ -188,13 +188,14 @@ public class FreemarkService {
 		context.put("catalogList",cataloglist);
 		String cnt = FreeMarkerTemplateUtils.processTemplateIntoString(tmp, context);
 		
-		
-		
-		
-		System.out.println(cnt);
-		String fileaddr = request.getRealPath("OutputHTML/web/"+id+".html");
-		File newhtmlfile = new File(fileaddr);
-		
+		syslog.info(cnt);
+		//String fileaddr = request.getRealPath("OutputHTML/web/"+id+".html");
+		String ctxPath = request.getSession().getServletContext().getRealPath("");
+		String outputHtmlFileAddr = ctxPath+"/OutputHTML/web/"+id+".html";
+		File newhtmlfile = new File(outputHtmlFileAddr);
+		if(!newhtmlfile.exists()){
+			newhtmlfile.createNewFile();
+		}
 		
 		FileUtils.writeStringToFile(newhtmlfile, cnt);
 		

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,7 +14,8 @@
 <script type="text/javascript" src="resources/js/ext-3.4.0/ext-all.js"></script>
 <script type="text/javascript" src="module/A_sys/TabCloseMenu.js"></script>
 <script type="text/javascript" src="module/A_sys/docs.js"></script>
-<script type="text/javascript" src="module/A_sys/tree.js"></script>
+<script type="text/javascript" src="module/A_sys/ext-lang-zh_CN.js"></script>
+<script type="text/javascript" src="module/A_sys/tree.js?v20150712"></script>
 
 <title>开发者基地</title>
 </head>
@@ -33,10 +33,10 @@
     <!--<img style="margin-left: 5px" src="" alt="Ext JS API Documentation" height="50" width="210" />-->
     <div style="float:left;width:300px;"><h1 class="sys_logo_bg"><!-- 协作管理平台 --></h1></div>
     <div style="float:right; margin-top: 15px;margin-right: 10px;color: #CCC">
-                    <a href="#" onclick="updateUserPassWordWin()" >欢迎<sec:authentication property="principal.username" /></a> | 
+        <a href="#" onclick="updateUserPassWordWin()" >欢迎</a> | 
         <a href="<c:url value="j_spring_security_logout"/>" style="padding:5px">退出</a> | 
         <a href="http://www.landfalcon.com/" style="padding:5px" target="_black">联系我们</a>
-        <input type="hidden" value="<sec:authentication property="principal.username" />" id="userName">
+        <input type="hidden" value="" id="userName">
         <input type="hidden" id="isVerifySuccess">
     </div>
 </div>

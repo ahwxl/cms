@@ -1,15 +1,20 @@
 
 		Docs.classData =[{"id":"apidocs","iconCls":"icon-docs","text":"功能菜单","singleClickExpand":true,"leaf":false,"children":[                
-                {"href":"showAddCntPage","text":"发布文章","id":"发布文章","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				{"href":"showrightMenu","text":"目录管理","id":"目录管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
-                {"href":"showArticle","text":"文章管理","id":"文章管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				{"href":"showArticle","text":"文章管理","id":"文章管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
-				{"href":"goAddTmplPage","text":"上传模板","id":"上传模板","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				{"href":"goProductListPage","text":"产品管理","id":"产品管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
 				{"href":"goTmplListPage","text":"模板管理","id":"模板管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
-				{"href":"showrightMenu","text":"目录管理","id":"目录管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+                {"href":"showAddCntPage","text":"添加文章","id":"发布文章","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
+				{"href":"showAddProductPage","text":"添加产品","id":"添加产品","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				,
+				{"href":"goAddTmplPage","text":"上传模板","id":"上传模板","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				,
+				
                 {"href":"ckfinder/_samples/standalone.html","text":"图片管理","id":"图片管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true,'frameType':'mif'}
 				]},
 				{

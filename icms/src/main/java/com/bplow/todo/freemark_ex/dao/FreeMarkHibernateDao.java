@@ -1,12 +1,17 @@
 package com.bplow.todo.freemark_ex.dao;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
+
+import sun.misc.UUDecoder;
 
 import com.bplow.look.bass.IPagination;
 import com.bplow.look.bass.dao.HibernateDao;
 import com.bplow.todo.freemark_ex.dao.entity.FmCatalog;
+import com.bplow.todo.freemark_ex.dao.entity.FmProduct;
 import com.bplow.todo.freemark_ex.dao.entity.TbFreemarkInfo;
 import com.bplow.todo.sysManager.dao.entity.SysDepartment;
 import com.bplow.todo.sysManager.dao.entity.SysRole;
@@ -58,6 +63,34 @@ public class FreeMarkHibernateDao extends HibernateDao{
 		
 		return list;
 	}
+	
+	//--------------------------------产品管理-------------------------------------------
+	public void saveFmProduct(FmProduct vo){
+		vo.setGmtCreate(new Date());
+		vo.setGmtModify(new Date());
+		vo.setIsShow('1');
+		this.getSession().save(vo);
+	}
+	public void updateFmProduct(FmProduct vo){
+		this.getSession().update(vo);
+	}
+	public void delFmProduct(FmProduct vo){
+		this.getSession().delete(vo);
+	}
+	public FmProduct queryProductById(FmProduct vo){
+		return (FmProduct)this.findUnique(" From FmProduct a where a.productId = ? ", vo.getCatalogId());
+	}
+	/**
+	 * 查询目录下所有产品
+	 * @param vo
+	 * @return
+	 */
+	public List getFmProductListByCatalogId(FmProduct vo){
+		List list = this.getSession().createQuery("from FmProduct a where a.catalogId = :catalogId").setString("catalogId", vo.getCatalogId()).list();
+		
+		return list;
+	}
+	
 	
 	//--------------------------------角色管理-------------------------------------------
 	public void saveRole(SysRole vo){

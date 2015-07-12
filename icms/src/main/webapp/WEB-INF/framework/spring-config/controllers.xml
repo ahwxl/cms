@@ -16,8 +16,8 @@
 	<mvc:view-controller path="/users/logout" />
 	<mvc:view-controller path="/users/logoutSuccess" />
 
-	<!-- Handler for "sysconfig/META-INF/spring/travel/controllers.xml"executions of the 'hotels/booking' flow -->
-	<bean name="hotels/booking" class="org.springframework.samples.travel.BookingFlowHandler" />
+	<!-- Handler for "sysconfig/META-INF/spring/travel/controllers.xml"executions of the 'hotels/booking' flow 
+	<bean name="hotels/booking" class="org.springframework.samples.travel.BookingFlowHandler" />-->
 	
 	
 	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

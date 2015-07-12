@@ -7,12 +7,13 @@
 	
 	<definition name="addContent" template="/WEB-INF/views/editorCnt/addContent.jsp" />
 	<definition name="addArticle" template="/WEB-INF/views/editorCnt/addArticle.jsp" />
-	
+	<definition name="addProduct" template="/WEB-INF/views/editorCnt/addProduct.jsp" />
 	<definition name="showImageMngPage" template="/WEB-INF/views/editorCnt/ImageMng.jsp" />
 	
 	<definition name="BrowersImagePop" template="/WEB-INF/views/editorCnt/BrowersImagePop.jsp" />
 	
 	<definition name="showArticle" template="/WEB-INF/views/editorCnt/showArticle.jsp" />
+	<definition name="showProduct" template="/WEB-INF/views/editorCnt/showProduct.jsp" />
 	
 	<definition name="addTmplFilePage" template="/WEB-INF/views/editorCnt/addTmplFile.jsp" />
 	<definition name="goTmplListPage" template="/WEB-INF/views/editorCnt/showTemplList.jsp" />
