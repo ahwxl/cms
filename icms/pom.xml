@@ -488,6 +488,11 @@
 			  <artifactId>jetty-maven-plugin</artifactId>
 			  <version>8.1.9.v20130131</version>
 			  <configuration>
+			    <connectors>
+			       <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>8181</port>
+                        </connector>
+			    </connectors>
 			    <webApp>
 			      <contextPath>/newcms</contextPath>
 			    </webApp>
@@ -500,7 +505,7 @@
 				<version>2.0</version>
 				<configuration>
 					<server>tomcat-development-server</server>
-					<port>8080</port>
+					<port>8181</port>
 					<path>/newcms</path>
 				</configuration>
 			</plugin>
