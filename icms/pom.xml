@@ -444,7 +444,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
-					<warName>myclient</warName>
+					<warName>newcms</warName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -498,7 +498,6 @@
 			    </webApp>
 			  </configuration>
 			</plugin>
-			
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>

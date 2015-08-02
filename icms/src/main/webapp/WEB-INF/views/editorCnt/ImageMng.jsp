@@ -8,7 +8,6 @@
 <title>图片管理</title>
 </head>
 <body>
-
 <h1 class="samples">
 图片管理
 </h1>

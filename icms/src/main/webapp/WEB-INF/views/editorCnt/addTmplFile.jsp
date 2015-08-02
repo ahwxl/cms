@@ -43,7 +43,6 @@ var fsf = new Ext.FormPanel({
                 	id:'file',
                 	fieldLabel: '上传文件',
                 	buttonText: '选择文件'
-                	
                 }
             ]
         }],

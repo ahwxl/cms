@@ -1,8 +1,11 @@
 package com.bplow.todo.freemark_ex.web;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +14,7 @@ import javax.xml.ws.ResponseWrapper;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -172,12 +176,36 @@ public class freemarkAction implements ServletContextAware{
 		return "showProduct";
 	}
 	
-	
+	/**
+	 * 保存产品
+	 * @param product
+	 * @param file
+	 * @param name
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
 	@ResponseBody
-	public String saveProduct(FmProduct product, HttpServletRequest request,
+	public String saveProduct(FmProduct product,@RequestParam("file")MultipartFile file, HttpServletRequest request,
 			HttpServletResponse response, Model model) throws Exception {
 
+		String filename = file.getOriginalFilename();
+		if(StringUtils.isNotBlank(filename)){
+			String filepath = request.getServletContext().getRealPath("/");
+			String uploadfilepath = filepath+"/uploadfile";
+			File tmpimamge = new File(uploadfilepath);
+			if(!tmpimamge.exists()){
+				tmpimamge.mkdir();
+			}
+			OutputStream out = new BufferedOutputStream(new FileOutputStream(uploadfilepath+"/"+filename));
+			IOUtils.copy(file.getInputStream(), out);
+			out.flush();
+			out.close();
+		}
+		
 		productService.addProduct(product);
 
 		return "{success:true,info:'操作成功!'}";

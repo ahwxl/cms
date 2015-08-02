@@ -23,7 +23,6 @@ import com.bplow.look.bass.dao.usertype.SQLEntity;
 import com.bplow.todo.freemark_ex.dao.entity.FmContent;
 import com.bplow.todo.freemark_ex.dao.entity.TbFreemarkInfo;
 
-import org.springframework.jdbc.support.lob.OracleLobHandler;
 import org.springframework.jdbc.support.lob.LobCreator;
 
 public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
