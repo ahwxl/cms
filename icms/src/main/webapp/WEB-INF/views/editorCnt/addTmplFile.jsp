@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script type="text/javascript">
-
+ 
 var fibasic = new Ext.ux.form.FileUploadField({
 	fieldLabel: '选择文件',
     width: 400
