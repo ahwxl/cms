@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <script type="text/javascript">
- /** 
+ /**
   * @module name 文章列表管理
   * @module desc 系统菜单的添加和删除
   * @author  wxl
