@@ -30,6 +30,8 @@ import com.bplow.todo.freemark_ex.dao.entity.TbFreemarkInfo;
 import com.bplow.todo.sysManager.dao.entity.SysDepartment;
 import com.bplow.todo.sysManager.dao.entity.SysRole;
 import com.bplow.todo.sysManager.dao.entity.SysUser;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import freemarker.template.Configuration;
@@ -130,6 +132,28 @@ public class FreemarkService {
 		
 		return fmcnt;
 	}
+	/*
+	 * 删除文章
+	 * */
+	public Boolean delCntById(String id){
+		freeMarkJdbcDao.delCnt(id);
+		return true;
+	}
+	
+	
+	/**
+	 * 获取文章内容  json
+	 * @param id
+	 * @return
+	 * @throws JsonGenerationException
+	 * @throws JsonMappingException
+	 * @throws IOException
+	 */
+	public String getCntByIdToJson(String id) throws JsonGenerationException, JsonMappingException, IOException{
+		FmContent fmcnt = freeMarkJdbcDao.getCntById(id);
+        String reStr = (new JsonStructureDataHelp(fmcnt)).getObjectToJsonString();
+		return reStr;
+	}
 	
 
 	/**
@@ -199,6 +223,16 @@ public class FreemarkService {
 		
 		FileUtils.writeStringToFile(newhtmlfile, cnt);
 		
+		return "ok";
+	}
+	/**
+	 * 修改文章内容
+	 * @param vo
+	 * @return
+	 * @throws IOException
+	 */
+	public String upateCntByIdToJson(FmContent vo) throws IOException{
+		freeMarkJdbcDao.updateCnt(vo);
 		return "ok";
 	}
 	

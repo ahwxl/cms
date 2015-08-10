@@ -38,6 +38,8 @@ import com.bplow.todo.freemark_ex.service.ProductService;
 import com.bplow.todo.sysManager.dao.entity.SysDepartment;
 import com.bplow.todo.sysManager.dao.entity.SysRole;
 import com.bplow.todo.sysManager.dao.entity.SysUser;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import freemarker.template.TemplateException;
 
@@ -51,7 +53,7 @@ public class freemarkAction implements ServletContextAware{
 	@Autowired
 	public ProductService productService;
 	
-	
+	//-----------------------------------------------模板管理----------------------------------------------
 	@RequestMapping(value = "/freemark", method = RequestMethod.GET) 
 	@ResponseBody
 	public String list(Model model) {
@@ -107,7 +109,25 @@ public class freemarkAction implements ServletContextAware{
 		return rtcnt;
 	}
 	
-	
+	//----------------------------------------------------文章管理---------------------------------------
+	/**
+	 * 显示文章列表
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/showArticle", method = RequestMethod.GET)
+	public String toImageMngPage2(Model model){
+		
+		
+		
+		
+		return "showArticle";
+	}
+	/**
+	 * 添加文章页面
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/showAddCntPage", method = RequestMethod.GET)
 	public String toAddCntPage(Model model){
 		
@@ -116,6 +136,33 @@ public class freemarkAction implements ServletContextAware{
 		
 		return "addArticle";
 	}
+	/**
+	 * 添加文章 操作
+	 * @param fmContent
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/saveContent", method = RequestMethod.POST)
+	@ResponseBody
+	public String saveCnt(FmContent fmContent,HttpServletRequest request, HttpServletResponse response,Model model) 
+			throws Exception{
+		String cnt = request.getRequestURI();
+		//System.out.println(request.getSession(true).getId());
+		freemarkService.saveCnt(fmContent);
+		return "{success:true,info:'操作成功!'}";
+	}
+	@RequestMapping(value = "/queryCntById", method = RequestMethod.POST)
+	@ResponseBody
+	public String queryCntById(FmContent fmContent, HttpServletRequest request,
+			HttpServletResponse response, Model model) throws JsonGenerationException, JsonMappingException, IOException {
+		String str = freemarkService.getCntByIdToJson(fmContent.getId());
+		return str;
+	}
+	
+	
 	/**
 	 * 添加产品页面
 	 * @param model
@@ -151,20 +198,6 @@ public class freemarkAction implements ServletContextAware{
 	
 	
 	/**
-	 * 显示文章列表
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/showArticle", method = RequestMethod.GET)
-	public String toImageMngPage2(Model model){
-		
-		
-		
-		
-		return "showArticle";
-	}
-	
-	/**
 	 * 显示产品列表
 	 * @param model
 	 * @return
@@ -175,7 +208,7 @@ public class freemarkAction implements ServletContextAware{
 		
 		return "showProduct";
 	}
-	
+//--------------------------------------------------------------------------------------------------------------------------------------------	
 	/**
 	 * 保存产品
 	 * @param product
@@ -221,22 +254,6 @@ public class freemarkAction implements ServletContextAware{
 		return "showPortal";
 	}
 	
-	
-	@RequestMapping(value = "/saveContent", method = RequestMethod.POST)
-	@ResponseBody
-	public String saveCnt(FmContent fmContent,HttpServletRequest request, HttpServletResponse response,Model model) 
-			throws Exception{
-		
-		
-		String cnt = request.getRequestURI();
-		System.out.println(request.getSession(true).getId());
-		
-		
-		freemarkService.saveCnt(fmContent);
-		
-		
-		return "{success:true,info:'操作成功!'}";
-	}
 	
 	/**
 	 * ajax 返回文章列表

@@ -5,7 +5,7 @@
   <groupId>com.bplow.cms</groupId>
   <artifactId>icms</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>icms</name>
   <url>http://maven.apache.org</url>

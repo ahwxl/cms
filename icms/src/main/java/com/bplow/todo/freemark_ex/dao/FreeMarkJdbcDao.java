@@ -78,9 +78,44 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 			}
 		}
 		);
-
-		
 	}
+	/**
+	 * 修改文章内容
+	 * @param vo
+	 * @throws IOException
+	 */
+	public void updateCnt(final FmContent vo)throws IOException{
+		final InputStream cntinputStream = IOUtils.toInputStream(vo.getContent());
+	    final int cntlength = IOUtils.toByteArray(vo.getContent()).length;
+		this.getJdbcTemplate().execute(
+		"INSERT INTO fm_content (id,content,cnt_caption,second_caption,is_delete_flag,catalog_id,operate_date,click_num) VALUES (?,?,?,?,?,?,?,?)",
+		new AbstractLobCreatingPreparedStatementCallback(defaultLobHandler) {
+			protected void setValues(PreparedStatement ps, LobCreator lobCreator) throws SQLException {
+			   ps.setString(1, vo.getId());
+			   lobCreator.setBlobAsBinaryStream(ps, 2, cntinputStream, cntlength);
+			   ps.setString(3, vo.getCnt_caption());
+			   ps.setString(4, vo.getSecond_caption());
+			   ps.setString(5, vo.getIs_delete_flag());
+			   ps.setString(6, vo.getCatalog_id());
+			   ps.setDate(7, new java.sql.Date(vo.getOperate_date().getTime()));
+			   ps.setInt(8, 0);
+			}
+		}
+		);
+	}
+	
+	public void delCnt(final String id){
+		
+		this.getJdbcTemplate().execute(
+		"UPDATE fm_content a set a.is_delete_flag ='1',a.operate_date = date  where a.id = ?",
+		new AbstractLobCreatingPreparedStatementCallback(defaultLobHandler) {
+			protected void setValues(PreparedStatement ps, LobCreator lobCreator) throws SQLException {
+			   ps.setString(1, id);
+			}
+		}
+		);
+	}
+	
 	
 	/**
 	 * 查询 单个文章
@@ -96,7 +131,6 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 		    	FmContent fmContentTmp = new FmContent();
 		    	fmContentTmp.setId(rs.getString("id"));
 		    	fmContentTmp.setCnt_caption( rs.getString("cnt_caption"));
-		    	//vo.setContent(rs.getString("content"));
 		    	byte[] blobBytes = lobHandler.getBlobAsBytes(rs, "content");
 		    	try {
 		    		fmContentTmp.setContent(IOUtils.toString(blobBytes));

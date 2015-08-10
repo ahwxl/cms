@@ -13,6 +13,12 @@ public class HQLEntity {
 		this.paramList = new ArrayList(5);
 	}
 	
+	public HQLEntity(String basssql) {
+		super();
+		this.sbf = new StringBuffer(basssql);
+		this.paramList = new ArrayList(5);
+	}
+	
 	public HQLEntity(StringBuffer sbf, List paramList) {
 		super();
 		this.sbf = sbf;
