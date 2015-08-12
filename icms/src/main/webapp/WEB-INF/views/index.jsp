@@ -8,14 +8,14 @@
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ux-all.css" />
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/xtheme-gray.css" />
 <!----><link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-<!----><link rel="stylesheet" type="text/css" href="resources/css/silk.css" />
+<!----><link rel="stylesheet" type="text/css" href="resources/css/silk.css?v=20150804" />
 <link rel="stylesheet" type="text/css" href="resources/css/ext_css_patch.css" />
 <script type="text/javascript" src="resources/js/ext-3.4.0/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="resources/js/ext-3.4.0/ext-all.js"></script>
 <script type="text/javascript" src="module/A_sys/TabCloseMenu.js"></script>
 <script type="text/javascript" src="module/A_sys/docs.js"></script>
 <script type="text/javascript" src="module/A_sys/ext-lang-zh_CN.js"></script>
-<script type="text/javascript" src="module/A_sys/tree.js?v20150712"></script>
+<script type="text/javascript" src="module/A_sys/tree.js?v20150812"></script>
 <title>开发者基地</title>
 </head>
 <body scroll="no">
@@ -30,10 +30,10 @@
 
 <div id="header">
     <!--<img style="margin-left: 5px" src="" alt="Ext JS API Documentation" height="50" width="210" />-->
-    <div style="float:left;width:300px;"><h1 class="sys_logo_bg"><!-- 协作管理平台 --></h1></div>
+    <div style="float:left;width:300px;"><h1 class="sys_logo_bg1"><!-- 协作管理平台 --></h1></div>
     <div style="float:right; margin-top: 15px;margin-right: 10px;color: #CCC">
-        <a href="#" onclick="updateUserPassWordWin()" >欢迎</a> | 
-        <a href="<c:url value="j_spring_security_logout"/>" style="padding:5px">退出</a> | 
+                    <a href="#" onclick="updateUserPassWordWin()" >欢迎</a> | 
+        <a href="" style="padding:5px">退出</a> | 
         <a href="http://www.landfalcon.com/" style="padding:5px" target="_black">联系我们</a>
         <input type="hidden" value="" id="userName">
         <input type="hidden" id="isVerifySuccess">

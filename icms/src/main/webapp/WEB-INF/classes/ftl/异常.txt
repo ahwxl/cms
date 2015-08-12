@@ -1,9 +1,0 @@
-java.awt.HeadlessException: 
-No X11 DISPLAY variable was set, but this program performed an operation which requires it.
-
-
-
-
-Caused by: java.net.SocketException: Broken pipe
-
-终于找到很明晰的原因了，原因是往一个socket写一个序列化对象写了2次，因为网络不稳定，所以有短开重新连接的机制，但是由于两太机器通过服务代理的方式传输，所以server无法发现客护短客户端退出，这样造成客户端列表里有一个机器一个端口的两个socket对象，这样往socket里写的时候就造成一个对象写两次的现象

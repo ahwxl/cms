@@ -8,11 +8,11 @@
   * @modify  man ***
   * @modify  date ***
   */
-  Ext.namespace('ArticleMng', 'ArticleMng.articleListMng');
+  Ext.namespace('ProductMng', 'ProductMng.productListMng');
 
 
  //create application
- ArticleMng.articleListMng = function() {
+ ProductMng.productListMng = function() {
    // do NOT access DOM from here; elements don't exist yet
 
    //此处定义私有属性变量
@@ -30,18 +30,18 @@
      	  
            //定义一些初始化行为
     	   //获取id为"docs-文章管理"的面板
-    	    var aimobj = Ext.mainScreem.findById('docs-文章管理');
+    	    var aimobj = Ext.mainScreem.findById('docs-产品管理');
     	    var lyobj = new Ext.layout.BorderLayout();//创建面板布局对象
     	    aimobj.setLayout(lyobj);//应用布局对象
 
 
 
-    	    aimobj.add(ArticleMng.articleListMng.catalogTree);//添加目录树面板
-    	    aimobj.add(ArticleMng.articleListMng.mygrid);//添加列表面板
+    	    aimobj.add(ProductMng.productListMng.catalogTree);//添加目录树面板
+    	    aimobj.add(ProductMng.productListMng.mygrid);//添加列表面板
     	    aimobj.doLayout();//展示页面
     	    
     	    //加载列表数据
-    	    ArticleMng.articleListMng.store.load();
+    	    ProductMng.productListMng.store.load();
        }
    };
  }(); // end of app 
@@ -60,7 +60,7 @@
 /**
  * 创建目录树对象
  */
- ArticleMng.articleListMng.catalogTree = new Ext.tree.TreePanel({
+ ProductMng.productListMng.catalogTree = new Ext.tree.TreePanel({
 	    //renderTo: 'tree-div',
 	    title:'目录树',
 	    useArrows: true,
@@ -76,7 +76,7 @@
 	    tools : [{
 			id : 'refresh',
 			handler : function() {
-				ArticleMng.articleListMng.catalogTree.root.reload()
+				ProductMng.productListMng.catalogTree.root.reload()
 			}
 		}],
 	    //dataUrl: '',
@@ -88,11 +88,11 @@
 	    }
 	});
 //添加目录树节点点击事件，添加别的事件也是这种方式，以此类推
- ArticleMng.articleListMng.catalogTree.on('click', function(node,e) {
+ ProductMng.productListMng.catalogTree.on('click', function(node,e) {
 		e.stopEvent();
 		node.expand();
 		deptid = node.attributes.id;
-		ArticleMng.articleListMng.store.load({
+		ProductMng.productListMng.store.load({
 					params : {
 						start : 0,
 						limit : 12,
@@ -104,7 +104,7 @@
  
  
 //数据集加载对象，给grid用的
- ArticleMng.articleListMng.store = new Ext.data.JsonStore({
+ ProductMng.productListMng.store = new Ext.data.JsonStore({
         root: 'topics',
         totalProperty: 'totalCount',
         //idProperty: 'threadid',
@@ -116,9 +116,9 @@
     });
 
     //添加grid 数据加载前事件
-    ArticleMng.articleListMng.store.on("beforeload",function (selfstore){
+    ProductMng.productListMng.store.on("beforeload",function (selfstore){
     	//将form面板的查询参数  封装成  store 能接受的对象
-    	var tmpCnf = Ext.urlDecode(Ext.Ajax.serializeForm(ArticleMng.articleListMng.searchPanel.getForm().getEl()));
+    	var tmpCnf = Ext.urlDecode(Ext.Ajax.serializeForm(ProductMng.productListMng.searchPanel.getForm().getEl()));
     	tmpCnf.start = 0;//从哪一条记录开始
     	tmpCnf.limit = 10;//查询条数
     	selfstore.baseParams=tmpCnf;
@@ -175,7 +175,7 @@
     
     
     //表单查询条件面板
-ArticleMng.articleListMng.searchPanel =new Ext.FormPanel({
+ProductMng.productListMng.searchPanel =new Ext.FormPanel({
      	region:"north",
      	height:35,
      	frame:false,
@@ -188,20 +188,20 @@ ArticleMng.articleListMng.searchPanel =new Ext.FormPanel({
      	                 {text:"发布时间:从"},{xtype:"datefield",format:"Y-m-d",name:"Q_accessionTime_D_GT"},
      	                 {text:"至"},{xtype:"datefield",format:"Y-m-d",name:"Q_accessionTime_D_LT"},
      	                 {xtype:"button",text:"查询",iconCls:"search",scope:this,handler:function (){
-     	                	//ArticleMng.articleListMng.store.baseParams=Ext.urlDecode(Ext.Ajax.serializeForm(searchPanel.getForm().getEl()));
-     	                	//alert(Ext.Ajax.serializeForm(ArticleMng.articleListMng.searchPanel.getForm().getEl()) );
-     	                	ArticleMng.articleListMng.store.load();
+     	                	//ProductMng.productListMng.store.baseParams=Ext.urlDecode(Ext.Ajax.serializeForm(searchPanel.getForm().getEl()));
+     	                	//alert(Ext.Ajax.serializeForm(ProductMng.productListMng.searchPanel.getForm().getEl()) );
+     	                	ProductMng.productListMng.store.load();
      	                   }}
      	                 ]});
     
 //创建一个列表面板
-ArticleMng.articleListMng.mygrid = new Ext.grid.GridPanel({
+ProductMng.productListMng.mygrid = new Ext.grid.GridPanel({
         //width:700,
         //height:500,
         //autoHeight: true,
         //title:'分页演示',
-        tbar:ArticleMng.articleListMng.searchPanel,
-        store:  ArticleMng.articleListMng.store,
+        tbar:ProductMng.productListMng.searchPanel,
+        store:  ProductMng.productListMng.store,
         //renderTo: 'tree-div',
         closable:true,
         trackMouseOver:true,
@@ -261,7 +261,7 @@ ArticleMng.articleListMng.mygrid = new Ext.grid.GridPanel({
         // paging bar on the bottom
         bbar: new Ext.PagingToolbar({
             pageSize: 10,
-            store:  ArticleMng.articleListMng.store,
+            store:  ProductMng.productListMng.store,
             displayInfo: true,
             displayMsg: 'Displaying topics {0} - {1} of {2}',
             emptyMsg: "No topics to display",
@@ -279,5 +279,5 @@ ArticleMng.articleListMng.mygrid = new Ext.grid.GridPanel({
             }]
         })
     });
-Ext.onReady(ArticleMng.articleListMng.init, ArticleMng.articleListMng);
+Ext.onReady(ProductMng.productListMng.init, ProductMng.productListMng);
 </script>

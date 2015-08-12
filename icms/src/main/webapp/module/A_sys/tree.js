@@ -4,7 +4,7 @@
 				,
 				{"href":"showArticle","text":"文章管理","id":"文章管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
-				{"href":"goProductListPage","text":"产品管理","id":"产品管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				{"href":"showProduct","text":"产品管理","id":"产品管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
 				{"href":"goTmplListPage","text":"模板管理","id":"模板管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
@@ -16,7 +16,7 @@
 				,
 				
                 {"href":"ckfinder/_samples/standalone.html","text":"图片管理","id":"图片管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true,'frameType':'mif'}
-				]},
+				]}/*,
 				{
 					"id":"processMng","iconCls":"icon-docs","text":"流程管理","singleClickExpand":true,"leaf":false,"children":[
                         {"href":"processInstanceMng","text":"流程实例管理","id":"流程实例管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true},
@@ -41,7 +41,7 @@
                       ,{"href":"britReportInfoMng","text":"报表列表管理","id":"报表列表管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}  
                       ,{"href":"schedulingInfoMng","text":"系统调度管理","id":"系统调度管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}  
 					]
-				}
+				}*/
 		]
 		;
         Docs.icons = {
