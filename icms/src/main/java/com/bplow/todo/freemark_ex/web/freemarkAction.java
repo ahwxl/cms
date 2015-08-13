@@ -53,6 +53,8 @@ public class freemarkAction implements ServletContextAware{
 	@Autowired
 	public ProductService productService;
 	
+	private String cmsfrontpath ="C:/Users/qian/git/cmsfront/cmsfront/src/main/webapp";
+	
 	//-----------------------------------------------模板管理----------------------------------------------
 	@RequestMapping(value = "/freemark", method = RequestMethod.GET) 
 	@ResponseBody
@@ -228,17 +230,20 @@ public class freemarkAction implements ServletContextAware{
 		String filename = file.getOriginalFilename();
 		if(StringUtils.isNotBlank(filename)){
 			String filepath = request.getServletContext().getRealPath("/");
-			String uploadfilepath = filepath+"/uploadfile";
+			String uploadfilepath = filepath+"/userfiles/images/upload";
 			File tmpimamge = new File(uploadfilepath);
 			if(!tmpimamge.exists()){
 				tmpimamge.mkdir();
 			}
 			OutputStream out = new BufferedOutputStream(new FileOutputStream(uploadfilepath+"/"+filename));
 			IOUtils.copy(file.getInputStream(), out);
+			
+			OutputStream outto = new BufferedOutputStream(new FileOutputStream(cmsfrontpath+"/userfiles/images/upload/"+filename));
+			IOUtils.copy(file.getInputStream(), outto);
 			out.flush();
 			out.close();
 		}
-		
+		product.setProductImageUrl("userfiles/images/upload/"+filename);
 		productService.addProduct(product);
 
 		return "{success:true,info:'操作成功!'}";

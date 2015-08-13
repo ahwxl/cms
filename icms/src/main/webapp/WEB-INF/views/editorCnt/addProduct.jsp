@@ -184,10 +184,11 @@ ProductMng.productAdd.myform = function (config){
               name: 'catalogId'
           },
           ProductMng.productAdd.processDefComboxTree,
-          {
+          /*{
               fieldLabel: '产品图片',
               name: 'productImageUrl'
-          },{
+          },*/
+          {
           	xtype:'fileuploadfield',
         	name:'file',
         	id:'file',
