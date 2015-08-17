@@ -78,7 +78,7 @@ public class FreeMarkHibernateDao extends HibernateDao{
 		this.getSession().delete(vo);
 	}
 	public FmProduct queryProductById(FmProduct vo){
-		return (FmProduct)this.findUnique(" From FmProduct a where a.productId = ? ", vo.getCatalogId());
+		return (FmProduct)this.findUnique(" From FmProduct a where a.productId = ? ", vo.getProductId());
 	}
 	/**
 	 * 查询目录下所有产品

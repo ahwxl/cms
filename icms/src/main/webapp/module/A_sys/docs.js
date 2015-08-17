@@ -421,11 +421,11 @@ SouthPanel = function (){
 	  	      {xtype:"tbfill"},
 	  	      {xtype:"tbtext",text:"协作内容管理平台",id:"toolbarCompanyName"},
 	  	      {xtype:"tbseparator"},
-	  	      new Ext.Toolbar.TextItem('技术支持 <a href=http://www.bplow.com target="_blank">上海陆鹰实业有限公司</a>'),
+	  	      new Ext.Toolbar.TextItem('技术支持 <a href=http://www.techwellglobal.com target="_blank">上威</a>'),
 	  	      {xtype:"tbseparator"},
 	  	      {pressed:false,text:"便签",iconCls:"tipsTile",handler:function(){App.clickTopTab("PersonalTipsView");}},
 	  	      {xtype:"tbseparator"},
-	  	      {pressed:false,text:"与我们联系",handler:function(){Ext.ux.Toast.msg("联系我们","电话：15890625022<br/>网址：http://www.bplow.com");}},"-",
+	  	      {pressed:false,text:"与我们联系",handler:function(){Ext.ux.Toast.msg("联系我们","电话：15890625022<br/>网址：http://www.techwellglobal.com");}},"-",
 	  	      {text:"收展",iconCls:"btn-expand",handler:function(){var a=Ext.getCmp("__nortPanel");if(a.collapsed){a.expand(true);}else{a.collapse(true);}}},"-",
 	  	      {xtype:"combo",mode:"local",editable:false,value:"切换皮肤",width:100,triggerAction:"all",store:[["ext-all","缺省浅蓝"],["ext-all-notheme","绿色主题"],["ext-all-css03","粉红主题"],["xtheme-gray","灰色主题"],["xtheme-default2","灰蓝主题"],["xtheme-default16","绿色主题"],["xtheme-access","Access风格"]],listeners:{scope:this,"select":function(d,b,c){if(d.value!=""){var a=new Date();a.setDate(a.getDate()+300);/*setCookie("theme",d.value,a,this.__ctxPath);*/Ext.util.CSS.swapStyleSheet("theme",this.__ctxPath+"/ext-3.4.0/resources/css/"+d.value+".css");}}}}]
 	});

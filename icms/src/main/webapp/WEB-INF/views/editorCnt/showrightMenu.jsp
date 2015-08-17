@@ -531,19 +531,19 @@
 		width : 85
 	});
 	
-	
+	/*操作*/ 
 	function renderOpt(value, p, r){
     	return String.format('<u  onclick=\"openAddarticle(\'{0}\')\" >添加文章</u>&nbsp;&nbsp;<u onclick=\"doDeleteCatalog(\'{0}\')\">删除</u>&nbsp;&nbsp;<u onclick=\"doPublicCatalogAction(\'{0}\')\">发布</u>',r.data['catalogId']);
     }
 	//发布目录
 	function doPublicCatalogAction(catalogId){
 		Ext.Ajax.request({
-		   url: '',		   
-		   success: function(){
-			   
+		   url: ''+catalogId,
+		   success: function(form, action){
+			   Ext.Msg.alert(action.result.info);
 		   },
-		   failure: function(){
-			   
+		   failure: function(form, action){
+			   Ext.Msg.alert('操作失败');
 		   }
 		   //,params: { 'catalogId':catalogId }
 		});
@@ -552,7 +552,16 @@
 	
 	//del catalog
 	function doDeleteCatalog(catalogId){
-		
+		Ext.Ajax.request({
+			   url: 'doDelCatalog?catalogId='+catalogId,		   
+			   success: function(form, action){
+				   Ext.Msg.alert(action.result.info);
+			   },
+			   failure: function(form, action){
+				   Ext.Msg.alert('操作失败');
+			   }
+			   //,params: { 'catalogId':catalogId }
+			});
 	}
 	
 var number = parseInt(pagesize_combo.getValue());
@@ -587,10 +596,10 @@ pagesize_combo.on("select", function(comboBox) {
 	            sortable: true
 	        },
 	        columns: [new Ext.grid.RowNumberer(),
-                {id: 'id', header: '编号', width: 200, sortable: true, dataIndex: 'catalogId'},
+                {id: 'id', header: '编号', width: 200, sortable: true,hidden:true, dataIndex: 'catalogId'},
 	            {id: 'company', header: '目录名称', width: 200, sortable: true, dataIndex: 'catalogName'},
 	            {header: '描述',  dataIndex: 'catalogDesc'},
-	            {header: '类型',  dataIndex: 'catalogType'},
+	            {header: '类型', width: 100,  dataIndex: 'catalogType'},
 	            {header: '操作',dataIndex:'',renderer:renderOpt}	
 	        ]
 	    }),

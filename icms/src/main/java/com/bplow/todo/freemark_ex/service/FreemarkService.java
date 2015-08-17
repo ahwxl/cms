@@ -122,6 +122,12 @@ public class FreemarkService {
 		freeMarkJdbcDao.saveCnt(vo);
 		
 	}
+	
+    public void editorCnt(FmContent vo) throws Exception{
+		vo.setOperate_date(new Date());
+		vo.setIs_delete_flag("0");
+		freeMarkJdbcDao.updateCnt(vo);
+	}
 
 	/**
 	 * 获取文章

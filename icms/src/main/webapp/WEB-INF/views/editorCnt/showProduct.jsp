@@ -96,7 +96,7 @@
 					params : {
 						start : 0,
 						limit : 12,
-						catalog_id : deptid
+						catalogId : deptid
 					}
 				});
 	});
@@ -105,14 +105,14 @@
  
 //数据集加载对象，给grid用的
  ProductMng.productListMng.store = new Ext.data.JsonStore({
-        root: 'topics',
+        root: 'data',
         totalProperty: 'totalCount',
         //idProperty: 'threadid',
         remoteSort: true,
         fields: [
-            'cnt_id', 'cnt_caption', 'catalog_id', 'operate_date'
+            'productId', 'productName', 'catalogId', 'productDesc','productImageUrl','gmtModify'
         ],
-        url: 'getCntList'
+        url: 'queryProductListById'
     });
 
     //添加grid 数据加载前事件
@@ -137,30 +137,20 @@
     }
     //对列表的某列作处理
     function renderOpt(value, p, r){
-    	return String.format('<a href=\'OutputHTML/web/{0}.html\' target=\"_blank\">预览</a>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">删除</u>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">发布</u>',r.data['cnt_id']);
+    	return String.format('<u onclick=\"doEditorCnt(\'{0}\')\" >修改</u>&nbsp;&nbsp;<u onclick=\"doDelCnt(\'{0}\')\">删除</u>&nbsp;&nbsp;',r.data['productId']);
     }
     //发布文章
-    function doPulicCnt(id){
+    function doEditorCnt(id){
     	/**/
-    	Ext.Ajax.request({
-    		   url: 'doPublicCnt?id='+id,
-    		   method:'get',
-    		   success: function(response, opts) {
-    			      //var obj = Ext.decode(response.responseText);
-    			      Ext.Msg.alert('系统提示',response.responseText);
-    		   },
-    		   failure: function(response, opts) {
-    			   Ext.Msg.alert('系统提示', '操作失败！');
-    		   },
-    		   params: { id: id }
-    		});
+    	var editerurl ='showEditorProductPage?productId='+id;
+    	Ext.mainScreem.loadClass(editerurl,"修改产品",null);
     }
-  //发布文章
+    //发布文章
     function doDelCnt(id){
     	/**/
     	Ext.Ajax.request({
-    		   url: 'doDelCnt?id='+id,
-    		   method:'get',
+    		   url: 'delProductAction?productId='+id,
+    		   method:'post',
     		   success: function(response, opts) {
     			      //var obj = Ext.decode(response.responseText);
     			      //alert(response.responseText);
@@ -212,27 +202,27 @@ ProductMng.productListMng.mygrid = new Ext.grid.GridPanel({
         // grid columns
         columns:[{
             //id: 'topic', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
-            header: "文章编号",
-            dataIndex: 'cnt_id',
+            header: "编号",
+            dataIndex: 'productId',
             width: 150,
             //renderer: renderTopic,
             sortable: true
         },{
-            header: "标题",
-            dataIndex: 'cnt_caption',
+            header: "产品名称",
+            dataIndex: 'productName',
             width: 100,
             //hidden: true,
             sortable: true
         },{
             header: "目录编码",
-            dataIndex: 'catalog_id',
+            dataIndex: 'catalogId',
             width: 70,
             align: 'right',
             sortable: true
         },{
-            id: '发布日期',
-            header: "发布日期",
-            dataIndex: 'operate_date',
+            id: '修改日期',
+            header: "修改日期",
+            dataIndex: 'gmtModify',
             width: 150,
             //renderer: renderLast,
             sortable: true

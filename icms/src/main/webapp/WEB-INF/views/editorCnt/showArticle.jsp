@@ -46,17 +46,7 @@
    };
  }(); // end of app 
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
 /**
  * 创建目录树对象
  */
@@ -137,7 +127,7 @@
     }
     //对列表的某列作处理
     function renderOpt(value, p, r){
-    	return String.format('<a href=\'OutputHTML/web/{0}.html\' target=\"_blank\">预览</a>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">删除</u>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">发布</u>',r.data['cnt_id']);
+    	return String.format('<a href=\'OutputHTML/web/{0}.html\' target=\"_blank\">预览</a>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">删除</u>&nbsp;&nbsp;<u onclick=\"doEditerCnt(\'{0}\')\">修改</u>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">发布</u>',r.data['cnt_id']);
     }
     //发布文章
     function doPulicCnt(id){
@@ -172,6 +162,12 @@
     		   params: { id: id }
     		});
     }
+  
+  function doEditerCnt(id){
+	  var editerurl = "showEditorCntPage?id="+id;
+	  Ext.mainScreem.loadClass(editerurl,"修改文章",null);
+	  
+  }
     
     
     //表单查询条件面板
@@ -228,12 +224,13 @@ ArticleMng.articleListMng.mygrid = new Ext.grid.GridPanel({
             dataIndex: 'catalog_id',
             width: 70,
             align: 'right',
+            hidden: true,
             sortable: true
         },{
             id: '发布日期',
             header: "发布日期",
             dataIndex: 'operate_date',
-            width: 150,
+            width: 100,
             //renderer: renderLast,
             sortable: true
         },{            

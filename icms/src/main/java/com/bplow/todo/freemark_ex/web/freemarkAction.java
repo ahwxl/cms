@@ -139,6 +139,19 @@ public class freemarkAction implements ServletContextAware{
 		return "addArticle";
 	}
 	/**
+	 * 添加文章页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/showEditorCntPage", method = RequestMethod.GET)
+	public String toEditorCntPage(Model model,FmContent fmContent){
+		
+		
+		model.addAttribute("fmContent", fmContent);
+		
+		return "editorArticle";
+	}
+	/**
 	 * 添加文章 操作
 	 * @param fmContent
 	 * @param request
@@ -156,7 +169,23 @@ public class freemarkAction implements ServletContextAware{
 		freemarkService.saveCnt(fmContent);
 		return "{success:true,info:'操作成功!'}";
 	}
-	@RequestMapping(value = "/queryCntById", method = RequestMethod.POST)
+	/**
+	 * 修改文章
+	 * @param fmContent
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/editorContent", method = RequestMethod.POST)
+	@ResponseBody
+	public String editorCnt(FmContent fmContent,HttpServletRequest request, HttpServletResponse response,Model model) 
+			throws Exception{
+		freemarkService.editorCnt(fmContent);
+		return "{success:true,info:'操作成功!'}";
+	}
+	@RequestMapping(value = "/queryCntById", method = RequestMethod.POST,produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String queryCntById(FmContent fmContent, HttpServletRequest request,
 			HttpServletResponse response, Model model) throws JsonGenerationException, JsonMappingException, IOException {
@@ -198,7 +227,7 @@ public class freemarkAction implements ServletContextAware{
 	}
 	
 	
-	
+	//------------------------------------------------------产品管理----------------------------------------------------------------------------------	
 	/**
 	 * 显示产品列表
 	 * @param model
@@ -210,7 +239,6 @@ public class freemarkAction implements ServletContextAware{
 		
 		return "showProduct";
 	}
-//--------------------------------------------------------------------------------------------------------------------------------------------	
 	/**
 	 * 保存产品
 	 * @param product
@@ -322,8 +350,9 @@ public class freemarkAction implements ServletContextAware{
 		
 		return "ok";
 	}
+//-----------------------------------------------目录管理-------------------------------------------
 	/**
-	 * 
+	 * 目录管理页面
 	 */
 	@RequestMapping(value = "/showrightMenu", method = RequestMethod.GET)
 	public String toShowRightMenuPage(){
