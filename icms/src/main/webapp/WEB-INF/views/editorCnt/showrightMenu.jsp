@@ -95,13 +95,13 @@
 	            text: ' 展开 ',
 	            handler : reloadTree
 	            
-	        },{
+	        }/* ,{
 	            text: ' 添加 '
 	        },{
 	            text: ' 修改 '
 	        },{
 	            text: ' 删除 '
-	        },{
+	        } */,{
 	            text: ' 刷新 ',
 	            handler : function() {
 	            	catalogTree.root.reload()
@@ -334,10 +334,32 @@
                     fieldLabel: '目录名称',
                     name: 'catalogName',
                     anchor:'95%'
-                }, {
+                },{
+                	xtype:          'combo',
+                    mode:           'local',
+                    value:          '1',
+                    triggerAction:  'all',
+                    forceSelection: true,
+                    editable:       false,
+                    fieldLabel:     '目录类别',
+                    name:           'catalogType',
+                    hiddenName:     'catalogType',
+                    displayField:   'name',
+                    valueField:     'value',
+                    anchor:'95%',
+                    store:          new Ext.data.JsonStore({
+                        fields : ['name', 'value'],
+                        data   : [
+                            {name : '产品',   value: '1'},
+                            {name : '文章',  value: '2'},
+                            {name : '字定义', value: '99'}
+                        ]
+                    })
+                },{
                     xtype:'textfield',
-                    fieldLabel: '目录类别',
-                    name: 'catalogType',
+                    fieldLabel: '排序',
+                    name: 'orderId',
+                    value:'1',
                     anchor:'95%'
                 }]
             },{
@@ -353,6 +375,11 @@
                     fieldLabel: '父目录',
                     name: 'pCatalogName',
                     //vtype:'email',
+                    anchor:'95%'
+                },{
+                    xtype:'textfield',
+                    fieldLabel: '模板',
+                    name: 'tmplid',
                     anchor:'95%'
                 },{
                 	hidden:true,
@@ -430,6 +457,7 @@
 		addForm.getForm().findField('pCatalogName').setValue(catalogObj.pCatalogName);
 		addForm.getForm().findField('catalogDesc').setValue(catalogObj.catalogDesc);
 		addForm.getForm().findField('pCatalogId').setValue(catalogObj.pCatalogId);
+		addForm.getForm().findField('orderId').setValue(catalogObj.orderId);
 		//alert(catalogObj.catalogId);
 	}
 	
@@ -485,8 +513,10 @@
 			   success : function(response, opts) {
 				   
 				   Ext.MessageBox.alert('系统信息',response.responseText);
+			   },
+			   failure:function(response, opts) { 
+				   Ext.MessageBox.alert('系统信息',response.responseText);
 			   }
-			   //failure: ,
 			   //,params: { foo: 'bar' }
 		});
 	}
@@ -507,7 +537,7 @@
 	    }},
 	    idProperty: 'name',
 	    fields: ['catalogId', 'catalogName','catalogDesc','imageSrc','catalogType','pCatalogId','secondName'
-	             ,'operateDate','isDeleteFlag']
+	             ,'operateDate','isDeleteFlag','orderId']
 	});
 
 	
@@ -530,10 +560,18 @@
 		editable : false,
 		width : 85
 	});
-	
+	/**/
+	function renderCatalogType(value, p, r){
+		if(value == "1"){
+			return "产品";
+		}else if(value == "2"){
+			return "文章";
+		}
+		return "其他";
+	}
 	/*操作*/ 
 	function renderOpt(value, p, r){
-    	return String.format('<u  onclick=\"openAddarticle(\'{0}\')\" >添加文章</u>&nbsp;&nbsp;<u onclick=\"doDeleteCatalog(\'{0}\')\">删除</u>&nbsp;&nbsp;<u onclick=\"doPublicCatalogAction(\'{0}\')\">发布</u>',r.data['catalogId']);
+    	return String.format('<u  onclick=\"openAddarticle(\'{0}\')\" ></u>&nbsp;&nbsp;<u onclick=\"doDeleteCatalog(\'{0}\')\">删除</u>&nbsp;&nbsp;<u onclick=\"doPublicCatalogAction(\'{0}\')\"></u>',r.data['catalogId']);
     }
 	//发布目录
 	function doPublicCatalogAction(catalogId){
@@ -554,10 +592,11 @@
 	function doDeleteCatalog(catalogId){
 		Ext.Ajax.request({
 			   url: 'doDelCatalog?catalogId='+catalogId,		   
-			   success: function(form, action){
-				   Ext.Msg.alert(action.result.info);
+			   success: function(response, opts){
+				   var obj = Ext.decode(response.responseText);
+				   Ext.Msg.alert('系统提示',obj.info);
 			   },
-			   failure: function(form, action){
+			   failure: function(response, opts){
 				   Ext.Msg.alert('操作失败');
 			   }
 			   //,params: { 'catalogId':catalogId }
@@ -599,7 +638,8 @@ pagesize_combo.on("select", function(comboBox) {
                 {id: 'id', header: '编号', width: 200, sortable: true,hidden:true, dataIndex: 'catalogId'},
 	            {id: 'company', header: '目录名称', width: 200, sortable: true, dataIndex: 'catalogName'},
 	            {header: '描述',  dataIndex: 'catalogDesc'},
-	            {header: '类型', width: 100,  dataIndex: 'catalogType'},
+	            {header: '类型', width: 50,  dataIndex: 'catalogType',renderer:renderCatalogType},
+	            {header:'排序',width:50,dataIndex:'orderId'},
 	            {header: '操作',dataIndex:'',renderer:renderOpt}	
 	        ]
 	    }),

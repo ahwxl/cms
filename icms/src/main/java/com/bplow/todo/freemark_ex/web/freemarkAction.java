@@ -52,8 +52,8 @@ public class freemarkAction implements ServletContextAware{
 	public ServletContext servletContext;
 	@Autowired
 	public ProductService productService;
-	
-	private String cmsfrontpath ="C:/Users/qian/git/cmsfront/cmsfront/src/main/webapp";
+	//C:/Users/qian/git/cmsfront/cmsfront/src/main/webapp
+	private String cmsfrontpath ="home/wxl/tomcat8080/webapps/ROOT";///
 	
 	//-----------------------------------------------模板管理----------------------------------------------
 	@RequestMapping(value = "/freemark", method = RequestMethod.GET) 
@@ -257,7 +257,7 @@ public class freemarkAction implements ServletContextAware{
 
 		String filename = file.getOriginalFilename();
 		if(StringUtils.isNotBlank(filename)){
-			String filepath = request.getServletContext().getRealPath("/");
+			String filepath = request.getSession().getServletContext().getRealPath("/");
 			String uploadfilepath = filepath+"/userfiles/images/upload";
 			File tmpimamge = new File(uploadfilepath);
 			if(!tmpimamge.exists()){
@@ -390,26 +390,23 @@ public class freemarkAction implements ServletContextAware{
 	@ResponseBody
 	public String doDelCnt(String id ,HttpServletRequest request){
 		
-		try {
-			String rtvalue = freemarkService.doPublicCnt(id, request);
-		} catch (IOException e) {			
-			e.printStackTrace();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
+	
+		boolean rtvalue = freemarkService.delCntById(id);
 		
-		return "操作成功！";
+		
+		return "{success:true,info:'操作成功!'}";
 	}
 	
 	
 	
-//----------------------------------------------------------------------------------------------------------	
+//--------------------------------------------------目录管理----------------------------------------------------	
 	/**
 	 * 栏目管理
 	 */
 	
 	/**
 	 * 显示栏目树
+	 * page
 	 */
 	@RequestMapping(value = "/showCatalogTree", method = RequestMethod.POST,produces="text/html;charset=UTF-8")
 	@ResponseBody
@@ -505,7 +502,6 @@ public class freemarkAction implements ServletContextAware{
 			
 			e.printStackTrace();
 		}
-        System.out.println(fmCatalogJsom);
 		
 		return fmCatalogJsom;
 	}
@@ -517,11 +513,11 @@ public class freemarkAction implements ServletContextAware{
 	 */
 	@RequestMapping(value = "/doDelCatalog", method = RequestMethod.GET, produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public FmCatalog doDelCatalog(FmCatalog fmCatalog ,HttpServletRequest request){
+	public String doDelCatalog(FmCatalog fmCatalog ,HttpServletRequest request){
 		
 		freemarkService.delFmCatalog(fmCatalog);
 		
-		return fmCatalog;
+		return "{success:true,info:'操作成功!'}";
 	}
 	/**
 	 * 发布栏目

@@ -7,10 +7,10 @@
 				{"href":"showProduct","text":"产品管理","id":"产品管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
 				{"href":"goTmplListPage","text":"模板管理","id":"模板管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
-				,
-                {"href":"showAddCntPage","text":"添加文章","id":"发布文章","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
-				,
-				{"href":"showAddProductPage","text":"添加产品","id":"添加产品","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				/*,
+                {"href":"showAddCntPage","text":"添加文章","id":"发布文章","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}*/
+				/*,
+				{"href":"showAddProductPage","text":"添加产品","id":"添加产品","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}*/
 				,
 				{"href":"goAddTmplPage","text":"上传模板","id":"上传模板","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,

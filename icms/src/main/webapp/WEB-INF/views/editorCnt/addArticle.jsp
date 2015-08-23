@@ -202,7 +202,19 @@ ArticleMng.articleAdd.myform = function (config){
         	        tag: 'textarea',        	        
         	        name:'content1'
         	    }
-        	})
+        	}),
+        	{
+	              xtype: 'ckeditor',
+	              fieldLabel: 'Editor',
+	              name: 'htmlcode',
+					CKConfig: {
+						/* Enter your CKEditor config paramaters here or define a custom CKEditor config file. */
+						customConfig : '/ckeditor/config.js', // This allows you to define the path to a custom CKEditor config file.
+						toolbar: 'Basic',
+						height : 200,
+						width: 250
+					}
+	          }
         	/*,{
   	            html:'<textarea class="ckeditor" cols="60" id="editor1" name="editor1" rows="10"></textarea>',
   	            listeners: {

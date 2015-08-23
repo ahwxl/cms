@@ -196,13 +196,13 @@ DocPanel = Ext.extend(Ext.Panel, {
         DocPanel.superclass.initComponent.call(this);
     },
 
-    directLink : function(){
+    /*directLink : function(){
         var link = String.format(
             "<a href=\"{0}\" target=\"_blank\">{0}</a>",
             document.location.href+'?class='+this.cclass
         );
         Ext.Msg.alert('Direct Link to ' + this.cclass,link);
-    },
+    },*/
     
     scrollToMember : function(member){
         var el = Ext.fly(this.cclass + '-' + member);

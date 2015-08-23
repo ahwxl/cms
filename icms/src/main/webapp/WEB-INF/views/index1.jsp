@@ -5,15 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ext-all.css" />
-<link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ux-all.css" />
-<link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/xtheme-gray.css" />
-<!----><link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-<!----><link rel="stylesheet" type="text/css" href="resources/css/silk.css?v=20150804" />
-<link rel="stylesheet" type="text/css" href="resources/css/ext_css_patch.css" />
+
 <script type="text/javascript" src="resources/js/ext-3.4.0/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="resources/js/ext-3.4.0/ext-all.js"></script>
 <script type="text/javascript" src="module/A_sys/TabCloseMenu.js"></script>
-<script type="text/javascript" src="module/A_sys/docs.js"></script>
+<script type="text/javascript" src="module/A_sys/docs.js?v20150822"></script>
 <script type="text/javascript" src="module/A_sys/ext-lang-zh_CN.js"></script>
 <script type="text/javascript" src="module/A_sys/tree.js?v20150812"></script>
 <title>开发者基地</title>
@@ -61,11 +57,8 @@
 
 
 
-<script type="text/javascript" src="resources/js/sys/ext-fixes.js"></script>
-<script type="text/javascript" src="resources/js/sys/ext-basex.js"></script>
-<script type="text/javascript" src="resources/js/sys/jit.js"></script>
+
 <!-- 富文本编辑器 -->
-<script type="text/javascript" src="module/editorContent/editor.js"></script>
 <script type="text/javascript" src="resources/js/ckeditor3.6.2/ckeditor.js"></script>
 <script type="text/javascript" src="resources/js/ckeditor.js"></script>
 <!--  <script type="text/javascript" src="resources/js/jquery-1.7.2.min.js"></script>-->
@@ -87,69 +80,8 @@ password : function(val, field)
 });
 
 
-      /* Define our dependency table for ux module names */
-Ext.onReady(function(){
+/* Define our dependency table for ux module names */
 
-     var ux= 'resources/js/sys/', extux = 'lib/ext-3.3+/examples/ux/';
-     
-     Ext.apply(
-      $JIT.depends , {
-      // JS source file   | source location    | Dependencies (in required load order)
-        'uxvismode'   :   {path: ux }
-       ,'multidom'    :   {path: ux }
-       ,'uxmedia'     :   {path: ux ,          depends: [ '@uxvismode' ,'@uxmask']}
-       ,'uxaudio'     :   {path: ux ,          depends: [ '@uxmedia']}
-       ,'uxflash'     :   {path: ux ,          depends: [ '@uxmedia'] }
-       ,'uxchart'     :   {path: ux ,          depends: [ '@uxflash' ] }
-       ,'uxfusion'    :   {path: ux ,          depends: [ '@uxchart'] }
-       ,'uxofc'       :   {path: ux ,          depends: [ '@uxchart'] }
-       ,'uxamchart'   :   {path: ux ,          depends: [ '@uxchart'] }
-       ,'uxflex'      :   {path: ux ,          depends: [ '@uxflash'] }
-	   ,'audioevents' :   {path: ux }
-	   ,'uxmask'      :   {path: ux }
-       ,'mif'         :   {path: ux ,          depends: ['@multidom' , '@uxvismode'] }     
-       ,'mifmsg'      :   {path: ux ,          depends: [ '@miframe'] }
-       ,'mifdd'       :   {path: ux ,          depends: [ '@miframe'] }
-       ,'miframe'     :   {virtual : true,     depends: [ '@mif'] }
-      
-      });
-	 
-	  var url = location.href.split('#')[0],
-        params = url.split('?')[1] || '',
-        args = Ext.urlDecode(params) || {}, 
-        script = args.script || args.demo ;
-       
-        
-      $JIT.setMethod('DOM'); //<script> tags for debugging/viewing
-      Ext.ResourceLoader.debug = !!args.debug;  	
-	  Ext.ResourceLoader.disableCaching = false;
-
-      //load the demo site startup scripts
-      $JIT(
-           {debug: true},
-           ux + 'ux-all',
-           ux + 'codelife', 
-		   ux + 'toolstips',
-		   ux + 'shortcuts',
-		   ux+'multidom',
-		   //'demos/workers/gears_init',
-		   ux+'uxworkers',
-		   
-		   
-		   '@uxmedia',
-		   '@uxflash',
-		   
-		   '@audioevents',
-		   'resources/js/sys/demowin',
-		   ux+'mif',
-		   'module/B_mif/startup'
-		  );
-     
-      //alert("");
-      
-      
-      
-});
 
 var updateUserPassWordForm = new Ext.FormPanel({
     labelWidth: 75, // label settings here cascade unless overridden

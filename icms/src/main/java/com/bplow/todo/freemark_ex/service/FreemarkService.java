@@ -313,6 +313,8 @@ public class FreemarkService {
 		tmpvo.setImageSrc(vo.getImageSrc());
 		tmpvo.setpCatalogId(vo.getpCatalogId());
 		tmpvo.setCatalogDesc(vo.getCatalogDesc());
+		tmpvo.setOrderId(vo.getOrderId());
+		tmpvo.setOperateDate(new Date());
 		
 		freeMarkHibernateDao.editorFmCatalog(tmpvo);
 		

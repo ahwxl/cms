@@ -8,10 +8,7 @@
 <title>图片管理</title>
 </head>
 <body>
-<h1 class="samples">
-图片管理
-</h1>
-	<p style="padding-left: 30px; padding-right: 30px;">
+	<p style="padding-left: 10px; padding-right: 10px;">
 		<script type="text/javascript">
 
 			// This is a sample function which is called when a file is selected in CKFinder.

@@ -34,7 +34,8 @@ public class ProductService {
 	@Autowired
 	public FreeMarkHibernateDao freeMarkHibernateDao;
 
-	private String cmsfrontpath = "C:/Users/qian/git/cmsfront/cmsfront/src/main/webapp";
+	// C:/Users/qian/git/cmsfront/cmsfront/src/main/webapp
+	private String cmsfrontpath = "/home/wxl/tomcat8080/webapps/ROOT";
 
 	public void addProduct(FmProduct vo) {
 		freeMarkHibernateDao.saveFmProduct(vo);
@@ -48,7 +49,7 @@ public class ProductService {
 		FmProduct oldobj = freeMarkHibernateDao.queryProductById(product);
 		String filename = file.getOriginalFilename();
 		if (StringUtils.isNotBlank(filename)) {
-			String filepath = request.getServletContext().getRealPath("/");
+			String filepath = request.getSession().getServletContext().getRealPath("/");
 			String uploadfilepath = filepath + "/userfiles/images/upload";
 			File tmpimamge = new File(uploadfilepath);
 			if (!tmpimamge.exists()) {
@@ -65,7 +66,7 @@ public class ProductService {
 			out.close();
 		}
 		if(null != filename){
-			oldobj.setProductImageUrl("userfiles/images/upload/" + filename);
+			oldobj.setProductImageUrl("/newcms/userfiles/images/upload/" + filename);
 		}
 		oldobj.setContent(product.getContent());
 		oldobj.setProductName(product.getProductName());

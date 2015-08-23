@@ -190,7 +190,19 @@ ProductMng.productListMng.mygrid = new Ext.grid.GridPanel({
         //height:500,
         //autoHeight: true,
         //title:'分页演示',
-        tbar:ProductMng.productListMng.searchPanel,
+        tbar:[{
+        	text:'添加产品',
+            id:'add_product',
+            iconCls:'silk-add',
+            handler:function (){
+            	Ext.mainScreem.loadClass('showAddProductPage','添加产品',null);
+            }
+        }],
+        listeners:{
+            'render':function () {
+            	ProductMng.productListMng.searchPanel.render(this.tbar);
+            }
+        },
         store:  ProductMng.productListMng.store,
         //renderTo: 'tree-div',
         closable:true,

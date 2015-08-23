@@ -1,5 +1,6 @@
 package com.bplow.todo.freemark_ex.dao;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
@@ -32,7 +33,7 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	
 	private Log log = LogFactory.getLog(FreeMarkJdbcDao.class);
 	
-	/**
+	/** 
 	 * 分页
 	 * 模板列表
 	 */
@@ -61,8 +62,8 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	 */
 	public void saveCnt(final FmContent vo) throws IOException{
 		
-		final InputStream cntinputStream = IOUtils.toInputStream(vo.getContent());
-	    final int cntlength = IOUtils.toByteArray(vo.getContent()).length;
+		final InputStream cntinputStream = new ByteArrayInputStream(vo.getContent().getBytes("GBK"));
+	    final int cntlength = vo.getContent().getBytes("GBK").length;
 		this.getJdbcTemplate().execute(
 		"INSERT INTO fm_content (id,content,cnt_caption,second_caption,is_delete_flag,catalog_id,operate_date,click_num) VALUES (?,?,?,?,?,?,?,?)",
 		new AbstractLobCreatingPreparedStatementCallback(defaultLobHandler) {
@@ -85,8 +86,8 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	 * @throws IOException
 	 */
 	public void updateCnt(final FmContent vo)throws IOException{
-		final InputStream cntinputStream = IOUtils.toInputStream(vo.getContent());
-	    final int cntlength = IOUtils.toByteArray(vo.getContent()).length;
+		final InputStream cntinputStream = new ByteArrayInputStream(vo.getContent().getBytes("GBK"));
+	    final int cntlength = vo.getContent().getBytes("GBK").length;
 		this.getJdbcTemplate().execute(
 		"update fm_content b set b.cnt_caption = ?,b.second_caption=?,b.content=?,b.catalog_id =?,b.operate_date=?  where b.id = ? ",
 		new AbstractLobCreatingPreparedStatementCallback(defaultLobHandler) {
@@ -105,7 +106,7 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	public void delCnt(final String id){
 		
 		this.getJdbcTemplate().execute(
-		"UPDATE fm_content a set a.is_delete_flag ='1',a.operate_date = date  where a.id = ?",
+		"UPDATE fm_content a set a.is_delete_flag ='1',a.operate_date = now()  where a.id = ?",
 		new AbstractLobCreatingPreparedStatementCallback(defaultLobHandler) {
 			protected void setValues(PreparedStatement ps, LobCreator lobCreator) throws SQLException {
 			   ps.setString(1, id);
@@ -131,7 +132,7 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 		    	fmContentTmp.setCnt_caption( rs.getString("cnt_caption"));
 		    	byte[] blobBytes = lobHandler.getBlobAsBytes(rs, "content");
 		    	try {
-		    		fmContentTmp.setContent(IOUtils.toString(blobBytes));
+		    		fmContentTmp.setContent(new String(blobBytes,"GBK"));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -150,7 +151,7 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	public IPagination getCntList(FmContent vo,int firstResult,int maxResults){
 		
 		SQLEntity sqlEntity = new SQLEntity();
-		sqlEntity.append(" select a.id, a.content,a.operate_date,a.cnt_caption,a.catalog_id  from fm_content a where 1=1 ");
+		sqlEntity.append(" select a.id, a.content,a.operate_date,a.cnt_caption,a.catalog_id  from fm_content a where a.is_delete_flag ='0' ");
 		
 		if(StringUtils.isNotBlank(vo.getCatalog_id())){
 			sqlEntity.append(" and a.catalog_id = ? ",vo.getCatalog_id());

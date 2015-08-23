@@ -127,7 +127,7 @@
     }
     //对列表的某列作处理
     function renderOpt(value, p, r){
-    	return String.format('<a href=\'OutputHTML/web/{0}.html\' target=\"_blank\">预览</a>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">删除</u>&nbsp;&nbsp;<u onclick=\"doEditerCnt(\'{0}\')\">修改</u>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">发布</u>',r.data['cnt_id']);
+    	return String.format('<a href=\'OutputHTML/web/{0}.html\' target=\"_blank\">预览</a>&nbsp;&nbsp;<u onclick=\"doDelCnt(\'{0}\')\">删除</u>&nbsp;&nbsp;<u onclick=\"doEditerCnt(\'{0}\')\">修改</u>&nbsp;&nbsp;<u onclick=\"doPulicCnt(\'{0}\')\">发布</u>',r.data['cnt_id']);
     }
     //发布文章
     function doPulicCnt(id){
@@ -196,7 +196,19 @@ ArticleMng.articleListMng.mygrid = new Ext.grid.GridPanel({
         //height:500,
         //autoHeight: true,
         //title:'分页演示',
-        tbar:ArticleMng.articleListMng.searchPanel,
+        tbar:[{
+        	text:'新增文章',
+            id:'add_article',
+            iconCls:'silk-add',
+            handler:function (){
+            	Ext.mainScreem.loadClass('showAddCntPage','发布文章',null);
+            }
+        }],
+        listeners:{
+            'render':function () {
+            	ArticleMng.articleListMng.searchPanel.render(this.tbar);
+            }
+        },
         store:  ArticleMng.articleListMng.store,
         //renderTo: 'tree-div',
         closable:true,
