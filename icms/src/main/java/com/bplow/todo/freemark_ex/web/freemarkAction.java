@@ -53,7 +53,7 @@ public class freemarkAction implements ServletContextAware{
 	@Autowired
 	public ProductService productService;
 	//C:/Users/qian/git/cmsfront/cmsfront/src/main/webapp
-	private String cmsfrontpath ="home/wxl/tomcat8080/webapps/ROOT";///
+	private String cmsfrontpath ="/home/wxl/tomcat8080/webapps/ROOT";///
 	
 	//-----------------------------------------------模板管理----------------------------------------------
 	@RequestMapping(value = "/freemark", method = RequestMethod.GET) 
@@ -265,11 +265,12 @@ public class freemarkAction implements ServletContextAware{
 			}
 			OutputStream out = new BufferedOutputStream(new FileOutputStream(uploadfilepath+"/"+filename));
 			IOUtils.copy(file.getInputStream(), out);
-			
-			OutputStream outto = new BufferedOutputStream(new FileOutputStream(cmsfrontpath+"/userfiles/images/upload/"+filename));
-			IOUtils.copy(file.getInputStream(), outto);
 			out.flush();
 			out.close();
+			OutputStream outto = new BufferedOutputStream(new FileOutputStream(cmsfrontpath+"/userfiles/images/upload/"+filename));
+			IOUtils.copy(file.getInputStream(), outto);
+			outto.flush();
+			outto.close();
 		}
 		product.setProductImageUrl("userfiles/images/upload/"+filename);
 		productService.addProduct(product);

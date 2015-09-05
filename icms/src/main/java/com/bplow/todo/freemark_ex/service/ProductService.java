@@ -36,6 +36,8 @@ public class ProductService {
 
 	// C:/Users/qian/git/cmsfront/cmsfront/src/main/webapp
 	private String cmsfrontpath = "/home/wxl/tomcat8080/webapps/ROOT";
+	
+	private final String prodImagePath = "newcms/userfiles/images/upload/";
 
 	public void addProduct(FmProduct vo) {
 		freeMarkHibernateDao.saveFmProduct(vo);
@@ -66,7 +68,7 @@ public class ProductService {
 			out.close();
 		}
 		if(null != filename){
-			oldobj.setProductImageUrl("/newcms/userfiles/images/upload/" + filename);
+			oldobj.setProductImageUrl(prodImagePath + filename);
 		}
 		oldobj.setContent(product.getContent());
 		oldobj.setProductName(product.getProductName());

@@ -1,4 +1,23 @@
-<%@ page language="java" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ext-all.css" />
+<link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ux-all.css" />
+<link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/xtheme-gray.css" />
+<!----><link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+<!----><link rel="stylesheet" type="text/css" href="resources/css/silk.css?v=20150804" />
+<link rel="stylesheet" type="text/css" href="resources/css/ext_css_patch.css" />
+<script type="text/javascript" src="resources/js/ext-3.4.0/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="resources/js/ext-3.4.0/ext-all.js"></script>
+<script type="text/javascript" src="module/A_sys/ext-lang-zh_CN.js"></script>
+<title>添加产品</title>
+</head>
+<body scroll="no">
+</body>
+</html>
 <script type="text/javascript">
  /**
   * @module name 添加产品
@@ -35,26 +54,36 @@
         init: function() {
       	  
             //定义一些初始化行为
-     	   //获取id为"docs-文章管理"的面板
-     	    var aimobj = Ext.mainScreem.findById('docs-添加产品');
+     	    //获取id为"docs-文章管理"的面板
+     	    //var aimobj = Ext.mainScreem.findById('docs-添加产品');
+            
+            var bodyelm = Ext.getBody();
+            var aimobj = new Ext.Panel({renderTo:bodyelm});
+            
      	    var lyobj = new Ext.layout.FitLayout();//创建面板布局对象
      	    aimobj.setLayout(lyobj);//应用布局对象
      	    addArticleForm = new ProductMng.productAdd.myform({title:'添加产品',cke_editor_id:cke_editor_id,id:'myproductform'});
      	    aimobj.add(addArticleForm);//添加目录树面板
      	    aimobj.doLayout();//展示页面
-     	    /*富文本编辑器*/
+     	    /*富文本编辑器
      	    CKEDITOR.replace( cke_editor_id,
     	    	    {
     	    	        filebrowserBrowseUrl : 'ckfinderPop',
     	    	        filebrowserUploadUrl : 'uploader/upload.php',
     	    	        filebrowserImageWindowWidth : '640',
-    	    	        filebrowserImageWindowHeight : '680'
+    	    	        filebrowserImageWindowHeight : '480'
     	    	    });
      	    //加载列表数据
      	    aimobj.on('close', onClose, this, {
 			single: true,
 			delay: 100
-			});
+			});*/
+     	   /*
+        	var viewport = new Ext.Viewport({
+                layout:'border',
+                items:[  ]
+            });
+        	viewport.doLayout();*/
 
      	    
         }
@@ -202,7 +231,6 @@ ProductMng.productAdd.myform = function (config){
         },new Ext.BoxComponent({
       	  name:'content1',
       	  id: this.cke_editor_id,
-      	  height:600,
       	  fieldLabel:'产品详情',
       	    autoEl: {
       	        tag: 'textarea',        	        
@@ -223,7 +251,7 @@ ProductMng.productAdd.myform = function (config){
       }]
     };
 	//Ext.apply(this.config,config);
-	MainPanel.superclass.constructor.call(this, this.config);
+	ProductMng.productAdd.myform.superclass.constructor.call(this, this.config);
 }
   
   

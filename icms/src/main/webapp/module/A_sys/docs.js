@@ -299,7 +299,7 @@ Ext.extend(MainPanel, Ext.TabPanel, {
 
     initEvents : function(){
         MainPanel.superclass.initEvents.call(this);
-        this.body.on('click', this.onClick, this);
+        //this.body.on('click', this.onClick, this);
     },
 
     onClick: function(e, target){

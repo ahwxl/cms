@@ -9,6 +9,7 @@
 	<definition name="addArticle" template="/WEB-INF/views/editorCnt/addArticle.jsp" />
 	<definition name="editorArticle" template="/WEB-INF/views/editorCnt/editorArticle.jsp" />
 	<definition name="addProduct" template="/WEB-INF/views/editorCnt/addProduct.jsp" />
+	<definition name="addProductIframe" template="/WEB-INF/views/editorCnt/addProductByIframe.jsp" />
 	<definition name="editorProduct" template="/WEB-INF/views/editorCnt/editorProduct.jsp" />
 	<definition name="showImageMngPage" template="/WEB-INF/views/editorCnt/ImageMng.jsp" />
 	

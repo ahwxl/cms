@@ -49,6 +49,14 @@ public class ProductControler {
 		
 		return str;
 	}
+	@RequestMapping(value = "/showAddProductPageIframe", produces="text/html;charset=UTF-8")
+	public String addProductPage(FmProduct fmProduct, HttpServletRequest request,
+			HttpServletResponse response, Model model) throws JsonGenerationException, JsonMappingException, IOException {
+		
+		model.addAttribute("fmProduct", fmProduct);
+		
+		return "addProductIframe";
+	}
 	/**
 	 * 
 	 * 显示修改产品

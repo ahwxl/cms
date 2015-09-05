@@ -502,6 +502,7 @@
 			    <webApp>
 			      <contextPath>/newcms</contextPath>
 			    </webApp>
+			    <scanIntervalSeconds>5</scanIntervalSeconds>
 			  </configuration>
 			</plugin>
 			<plugin>

@@ -13,7 +13,7 @@
 <script type="text/javascript" src="resources/js/ext-3.4.0/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="resources/js/ext-3.4.0/ext-all.js"></script>
 <script type="text/javascript" src="module/A_sys/TabCloseMenu.js"></script>
-<script type="text/javascript" src="module/A_sys/docs.js"></script>
+<script type="text/javascript" src="module/A_sys/docs.js?20150901"></script>
 <script type="text/javascript" src="module/A_sys/ext-lang-zh_CN.js"></script>
 <script type="text/javascript" src="module/A_sys/tree.js?v20150812"></script>
 <title>开发者基地</title>

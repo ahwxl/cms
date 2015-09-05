@@ -195,7 +195,9 @@ ProductMng.productListMng.mygrid = new Ext.grid.GridPanel({
             id:'add_product',
             iconCls:'silk-add',
             handler:function (){
+            	// showAddProductPage
             	Ext.mainScreem.loadClass('showAddProductPage','添加产品',null);
+            	//Ext.mainScreem.addNewTab( Ext.getmifObj({id:'添加产品',title:'添加产品',src:'showAddProductPageIframe'}),'添加产品');
             }
         }],
         listeners:{
