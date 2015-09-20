@@ -15,7 +15,7 @@
 <script type="text/javascript" src="module/A_sys/TabCloseMenu.js"></script>
 <script type="text/javascript" src="module/A_sys/docs.js?20150901"></script>
 <script type="text/javascript" src="module/A_sys/ext-lang-zh_CN.js"></script>
-<script type="text/javascript" src="module/A_sys/tree.js?v20150812"></script>
+<script type="text/javascript" src="module/A_sys/tree.js?v20150816"></script>
 <title>开发者基地</title>
 </head>
 <body scroll="no">
@@ -33,7 +33,7 @@
     <div style="float:left;width:300px;"><h1 class="sys_logo_bg1"><!-- 协作管理平台 --></h1></div>
     <div style="float:right; margin-top: 15px;margin-right: 10px;color: #CCC">
                     <a href="#" onclick="updateUserPassWordWin()" >欢迎</a> | 
-        <a href="" style="padding:5px">退出</a> | 
+        <a href="loginOut" style="padding:5px">退出</a> | 
         <a href="http://www.landfalcon.com/" style="padding:5px" target="_black">联系我们</a>
         <input type="hidden" value="" id="userName">
         <input type="hidden" id="isVerifySuccess">

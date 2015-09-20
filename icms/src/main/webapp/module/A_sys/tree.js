@@ -14,7 +14,8 @@
 				,
 				{"href":"goAddTmplPage","text":"上传模板","id":"上传模板","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
-				
+				{"href":"sysDicParaMng","text":"滚动图片","id":"滚动图片","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				,
                 {"href":"ckfinder/_samples/standalone.html","text":"图片管理","id":"图片管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true,'frameType':'mif'}
 				]}/*,
 				{

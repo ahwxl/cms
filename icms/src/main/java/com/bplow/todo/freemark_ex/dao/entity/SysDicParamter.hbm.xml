@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-13 16:28:00 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="com.bplow.todo.freemark_ex.dao.entity.SysDicParamter" table="sys_dic_paramter">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="PName" type="string">
+            <column name="p_name" length="100" />
+        </property>
+        <property name="PGroup" type="string">
+            <column name="p_group" length="2">
+                <comment>&#178;&#206;&#202;&#253;&#183;&#214;&#215;&#233;</comment>
+            </column>
+        </property>
+        <property name="PDesc" type="string">
+            <column name="p_desc" length="200">
+                <comment>&#195;&#232;&#202;&#246;</comment>
+            </column>
+        </property>
+        <property name="PValue" type="string">
+            <column name="p_value" length="200">
+                <comment>&#214;&#181;</comment>
+            </column>
+        </property>
+        <property name="POrder" type="java.lang.Integer">
+            <column name="p_order">
+                <comment>&#197;&#197;&#178;&#233;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

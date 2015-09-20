@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import com.bplow.todo.freemark_ex.dao.FreeMarkHibernateDao;
 import com.bplow.todo.freemark_ex.dao.FreeMarkJdbcDao;
 import com.bplow.todo.freemark_ex.dao.entity.FmCatalog;
 import com.bplow.todo.freemark_ex.dao.entity.FmContent;
+import com.bplow.todo.freemark_ex.dao.entity.SysDicParamter;
 import com.bplow.todo.freemark_ex.dao.entity.TbFreemarkInfo;
 import com.bplow.todo.sysManager.dao.entity.SysDepartment;
 import com.bplow.todo.sysManager.dao.entity.SysRole;
@@ -460,5 +462,59 @@ public class FreemarkService {
     	return ipagination.getJsonByList();
     }
     
+    
+    //----------------------------------------系统参数字典---------------------------------------
+    
+    /**
+     * 参数列表
+     * json
+     * @param vo
+     * @return
+     * @throws IOException 
+     * @throws JsonMappingException 
+     * @throws JsonGenerationException 
+     */
+    public String getDicParaListByGroup(SysDicParamter vo) throws JsonGenerationException, JsonMappingException, IOException{
+    	
+    	List list = freeMarkHibernateDao.queryDicParaList(vo);
+    	String jsonTreeData = new JsonStructureDataHelp(list).getJsonByList();
+    	return jsonTreeData;
+    }
+    public void addDicPara(SysDicParamter vo){
+    	freeMarkHibernateDao.saveSysDicPara(vo);
+    }
+    public void delDicPara(SysDicParamter vo){
+    	
+    	String idArrayStr = vo.getIdArray();
+    	String idArray[] = null;
+    	Integer[] idArrayInt = null;
+    	if(StringUtils.isNotBlank(idArrayStr)){
+    		idArray =  idArrayStr.split(",");
+    		idArrayInt = new Integer[idArray.length];
+    		for(int i =0;i<idArray.length;i++){
+    			idArrayInt[i] = Integer.parseInt(idArray[i]);
+    		}
+    	}
+    	if(null != idArrayInt && idArrayInt.length > 0){
+    		for(Integer i : idArrayInt){
+    			SysDicParamter tmp = new SysDicParamter();
+    			tmp.setId(i);
+    			freeMarkHibernateDao.delSysDicPara(tmp);
+        	}
+    	}
+    	
+    }
+    
+    public void editorDicPara(SysDicParamter vo){
+    	SysDicParamter tmp = freeMarkHibernateDao.queryDicById(vo);
+    	
+    	freeMarkHibernateDao.editorSysDicPara(tmp);
+    }
+    
+    public String queryDicById(SysDicParamter vo) throws JsonGenerationException, JsonMappingException, IOException{
+    	SysDicParamter tmp = freeMarkHibernateDao.queryDicById(vo);
+    	String jsonObjectStr = new JsonStructureDataHelp(tmp).getObjectToJsonString();
+    	return jsonObjectStr;
+    }
 	
 }

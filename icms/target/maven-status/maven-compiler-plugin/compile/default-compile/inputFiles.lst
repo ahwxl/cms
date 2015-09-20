@@ -11,6 +11,7 @@ C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\configuration\package-info.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\CopyFilesCommand.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\configuration\Configuration.java
+C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\freemark_ex\dao\entity\SysDicParamter.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\DeleteFileCommand.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\utils\MyTNT.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\freemark_ex\service\FreemarkService.java
@@ -19,6 +20,7 @@ C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\dao\TbSysUser.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\ServletContextFactory.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\ErrorCommand.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\SimplePagination.java
+C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\sysManager\service\UserService.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\socket\NIOClient.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\freemark_ex\dao\entity\TbFreemarkInfo.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\errors\ErrorUtils.java
@@ -36,6 +38,7 @@ C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\sysManager\service\SysMa
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\dao\SimpleHibernateDao.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\base\dbsource\DbSourceHolder.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\data\BeforeExecuteCommandEventArgs.java
+C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\sysManager\web\UserLoginAction.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\sysManager\dao\entity\SysMenu.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\plugins\SaveFileCommand.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\base\page\PageSourceInter.java
@@ -51,6 +54,7 @@ C:\Users\qian\git\cms\icms\src\main\java\com\bplow\base\page\FlexPagination.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\dao\SearchCriteria.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\utils\NaturalOrderComparator.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\web\WebContext.java
+C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\sysManager\service\impl\UserServiceImpl.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\base\dao\impl\BaseHibernateDaoImpl.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\data\IEventHandler.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\utils\CustomDateSerializer.java
@@ -93,8 +97,8 @@ C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\quartz\service\Scheduler
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\dao\usertype\HQLEntity.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\sysManager\web\SysManagerAction.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\sysManager\dao\entity\SysUser.java
-C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\RenameFolderCommand.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\package-info.java
+C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\RenameFolderCommand.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\LoadCookiesCommand.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\plugins\ImageResize.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\GetFilesCommand.java
@@ -112,6 +116,7 @@ C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\package-info.jav
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\utils\FileUtils.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\configuration\IBasePathBuilder.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\filter\LoginVerifyFilter.java
+C:\Users\qian\git\cms\icms\src\main\java\com\bplow\todo\sysManager\dao\entity\User.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\multiThread\ProductAndCustomer.java
 C:\Users\qian\git\cms\icms\src\main\java\com\ckfinder\connector\handlers\command\Command.java
 C:\Users\qian\git\cms\icms\src\main\java\com\bplow\look\bass\SessionManager.java

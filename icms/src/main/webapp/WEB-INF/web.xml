@@ -7,6 +7,7 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -23,6 +24,21 @@
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <!-- 登陆验证 -->
+  <filter>
+      <filter-name>LoginVerifyFilter</filter-name>
+      <filter-class>com.bplow.look.bass.filter.LoginVerifyFilter</filter-class>
+      <init-param>
+          <param-name>pass</param-name>
+	<param-value>/module/;/resources/;/static/;/login;/userfiles/</param-value>
+      </init-param>
+  </filter>
+  <filter-mapping>
+      <filter-name>LoginVerifyFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
   <filter>
     <filter-name>httpMethodFilter</filter-name>
     <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
@@ -96,4 +112,15 @@
   <session-config>
     <session-timeout>480</session-timeout>
   </session-config>
+  <welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/common/403.html</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.html</location>
+	</error-page>
 </web-app>

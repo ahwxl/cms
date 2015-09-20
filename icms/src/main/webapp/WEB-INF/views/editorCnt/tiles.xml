@@ -17,7 +17,7 @@
 	
 	<definition name="showArticle" template="/WEB-INF/views/editorCnt/showArticle.jsp" />
 	<definition name="showProduct" template="/WEB-INF/views/editorCnt/showProduct.jsp" />
-	
+	<definition name="sysDicPara" template="/WEB-INF/views/editorCnt/showDicPara.jsp" />
 	<definition name="addTmplFilePage" template="/WEB-INF/views/editorCnt/addTmplFile.jsp" />
 	<definition name="goTmplListPage" template="/WEB-INF/views/editorCnt/showTemplList.jsp" />
 	

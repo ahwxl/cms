@@ -12,4 +12,6 @@
 	<definition name="test" template="/WEB-INF/views/test.jsp" />
 		
 	<definition name="mainPage" template="/WEB-INF/views/index.jsp" />
+	
+	<definition name="login" template="/WEB-INF/views/login.jsp" />
 </tiles-definitions>

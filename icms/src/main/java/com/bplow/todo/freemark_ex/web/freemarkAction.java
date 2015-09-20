@@ -2,6 +2,7 @@ package com.bplow.todo.freemark_ex.web;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bplow.todo.freemark_ex.dao.entity.FmCatalog;
 import com.bplow.todo.freemark_ex.dao.entity.FmContent;
 import com.bplow.todo.freemark_ex.dao.entity.FmProduct;
+import com.bplow.todo.freemark_ex.dao.entity.SysDicParamter;
 import com.bplow.todo.freemark_ex.dao.entity.TbFreemarkInfo;
 import com.bplow.todo.freemark_ex.service.FreemarkService;
 import com.bplow.todo.freemark_ex.service.ProductService;
@@ -718,15 +720,81 @@ public class freemarkAction implements ServletContextAware{
 //---------------------------------------系统管理end--------------------------------------------------------------	
 	
 	
+	//--------------------------------参数管理----------------------------------------------
 	
+	@RequestMapping(value = "/sysDicParaMng", produces="text/html;charset=UTF-8")
+	public String sysDicParaListPage(SysDicParamter sys,HttpServletRequest request,HttpServletResponse response){
+		
+		
+		return "sysDicPara";
+	}
 	
+	@RequestMapping(value = "/sysDicParaList", produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String sysDicParaList(SysDicParamter sys,HttpServletRequest request,HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException{
+		
+		sys.setPGroup("1");
+		String str = freemarkService.getDicParaListByGroup(sys);
+		
+		return str;
+	}
 	
+	@RequestMapping(value = "/addSysDicPara", method = RequestMethod.POST,produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String addSysDicPara(SysDicParamter dicPara,@RequestParam("file")MultipartFile file,
+			HttpServletRequest request,HttpServletResponse response) throws Exception{
+		
+		String filename = file.getOriginalFilename();
+		if(StringUtils.isNotBlank(filename)){
+			String filepath = request.getSession().getServletContext().getRealPath("/");
+			String uploadfilepath = filepath+"/userfiles/images/upload";
+			File tmpimamge = new File(uploadfilepath);
+			if(!tmpimamge.exists()){
+				tmpimamge.mkdir();
+			}
+			OutputStream out = new BufferedOutputStream(new FileOutputStream(uploadfilepath+"/"+filename));
+			IOUtils.copy(file.getInputStream(), out);
+			out.flush();
+			out.close();
+			dicPara.setPValue("newcms/userfiles/images/upload/"+filename);
+		}
+		dicPara.setPGroup("1");
+		freemarkService.addDicPara(dicPara);
+		
+		return "{success:true,info:'操作成功!'}";
+	}
 	
+	@RequestMapping(value = "/delSysDicPara", method = RequestMethod.POST,produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String delSysDicPara(SysDicParamter dicPara,HttpServletRequest request,HttpServletResponse response){
+		
+		
+		freemarkService.delDicPara(dicPara);
+		
+		return "{success:true,info:'操作成功!'}";
+	}
 	
+	@RequestMapping(value = "/updateSysDicPara", produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String updateSysDicPara(SysDicParamter dicPara,HttpServletRequest request,HttpServletResponse response){
+		
+		
+		freemarkService.editorDicPara(dicPara);
+		
+		return "{success:true,info:'操作成功!'}";
+	}
 	
-	
-	
-	
+	@RequestMapping(value = "/querySysDicParaById", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String querySysDicPara(SysDicParamter dicPara,
+			HttpServletRequest request, HttpServletResponse response)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		String str = freemarkService.queryDicById(dicPara);
+
+		return str;
+	}
+	//--------------------------------参数管理end----------------------------------------------
 	
 
 	public void setServletContext(ServletContext servletContext) {

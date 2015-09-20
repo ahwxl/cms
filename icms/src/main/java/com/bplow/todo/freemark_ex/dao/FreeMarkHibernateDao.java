@@ -12,6 +12,7 @@ import com.bplow.look.bass.IPagination;
 import com.bplow.look.bass.dao.HibernateDao;
 import com.bplow.todo.freemark_ex.dao.entity.FmCatalog;
 import com.bplow.todo.freemark_ex.dao.entity.FmProduct;
+import com.bplow.todo.freemark_ex.dao.entity.SysDicParamter;
 import com.bplow.todo.freemark_ex.dao.entity.TbFreemarkInfo;
 import com.bplow.todo.sysManager.dao.entity.SysDepartment;
 import com.bplow.todo.sysManager.dao.entity.SysRole;
@@ -181,6 +182,34 @@ public class FreeMarkHibernateDao extends HibernateDao{
 		String hql = "select new SysDepartment( a.departid,a.departname,a.departdesc,a.pdepartid,a.sortid) from SysDepartment a where a.pdepartid ='"+po.getPdepartid()+"'";
 		IPagination ipagination = this.queryForPagination(hql, null, po.getStart(), po.getLimit());		
 		return ipagination;
+	}
+	
+	//----------------------------------系统参数字典------------------------------------
+	public void saveSysDicPara(SysDicParamter vo){
+		this.getSession().save(vo);
+	}
+	
+	public void delSysDicPara(SysDicParamter vo){
+		this.getSession().delete(vo);
+	}
+	
+	public void editorSysDicPara(SysDicParamter vo){
+		this.getSession().update(vo);
+	}
+	
+	public SysDicParamter queryDicById(SysDicParamter vo){
+		return (SysDicParamter)this.getSession().get(vo.getClass(), vo.getId());
+	}
+
+
+	/**
+	 * 根据分组查询 参数列表
+	 * @param vo
+	 * @return
+	 */
+	public List queryDicParaList(SysDicParamter vo){
+		return this.getSession().createQuery("from SysDicParamter a where a.PGroup =:PGroup").
+				setString("PGroup", vo.getPGroup() ).list();
 	}
 	
 
