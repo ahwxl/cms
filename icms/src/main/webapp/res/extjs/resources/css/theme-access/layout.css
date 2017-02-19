@@ -22,10 +22,10 @@
 .x-layout-collapsed-over{
     background-color:#2d3440;
 }
-
+/*
 .x-layout-split-west .x-layout-mini {
     background-image:url(../images/default/layout/mini-left.gif);
-}
+}*/
 
 .x-layout-split-east .x-layout-mini {
     background-image:url(../images/default/layout/mini-right.gif);
@@ -42,11 +42,11 @@
 .x-layout-cmini-west .x-layout-mini {
     background-image:url(../images/default/layout/mini-right.gif);
 }
-
+/*
 .x-layout-cmini-east .x-layout-mini {
     background-image:url(../images/default/layout/mini-left.gif);
 }
-
+*/
 .x-layout-cmini-north .x-layout-mini {
     background-image:url(../images/default/layout/mini-bottom.gif);
 }

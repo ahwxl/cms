@@ -131,7 +131,7 @@ Ext.USE_NATIVE_JSON = false;
               var module = Demo.resolveURL(klass, script);//获取js路径
               
               if(module){ 
-                $JIT.loaded(module) || (window._gat && _gat._getTracker(gaKeys[klass] || "UA-5706578-1")._trackPageview()); 
+                $JIT.loaded(module) || (window._gat && _gat._getTracker(gaKeys[klass] || "UA-5706578-1")._trackPageview());
                 $JIT.script(module);
                 //Assign each demo to its respective shortcut group
                 //alert(klass);
@@ -172,7 +172,7 @@ Ext.USE_NATIVE_JSON = false;
                       }
                     });        
                   } else { 
-                  
+                   module='mifsimple';
                    $JIT.onAvailable(module, function(loaded){
 		                   if(loaded && cfg.id){
 		                     var comp = Ext.getCmp(cfg.id);
@@ -277,9 +277,9 @@ Ext.USE_NATIVE_JSON = false;
            * 亲们，下面这块，是偶注释的，如果要放开请加载相应的js，
            */
           
-          /*
-          codeLife : Ext.CodeLife,
           
+          codeLife : Ext.CodeLife,
+          /*
           codeLifeWorker : new Ext.ux.Worker({
             url:'demos/workers/codelife-worker-debug.js',
             listeners : {
@@ -330,7 +330,7 @@ Ext.USE_NATIVE_JSON = false;
   Ext.onReady(function() {
      
     Ext.QuickTips.init();
-    document.title += ' for Ext '+Ext.version;
+    //document.title += ' for Ext '+Ext.version;
         
     $JIT.on(
        {'timeout': function( MM, module ){
@@ -716,7 +716,7 @@ Ext.USE_NATIVE_JSON = false;
 	            items: [nav, tabs]
 	        });
 
-	        //win.show(this);
+	        win.show(this);
 		    
 		    
 		    

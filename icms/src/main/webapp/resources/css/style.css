@@ -228,10 +228,10 @@ a:hover {
 .hide-inherited .inherited {
     display:none;
 }
-
+/*
 #doc-body .x-tab-panel-body {
     background:#fff url(images/default/form/text-bg.gif) repeat-x 0 0;
-}
+}*/
 #doc-body .x-panel-body, #doc-body .body-wrap {
     background:transparent !important;
 }
@@ -355,11 +355,11 @@ h3.home-title {
 .brick-icon {
     background-image: url(brick.png) !important;
 }
-
+/*
 .x-viewport body {
   background: #ededed url(hd-bg.png) repeat-x !important;
 }
-
+*/
 .x-border-layout-ct {
   background:none;
 }

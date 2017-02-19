@@ -7,8 +7,8 @@
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ux-all.css" />
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/xtheme-gray.css" />
-<!----><link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-<!----><link rel="stylesheet" type="text/css" href="resources/css/silk.css?v=20150804" />
+<!----><link rel="stylesheet" type="text/css" href="resources/css/style.css?v=20150805" />
+<!----><link rel="stylesheet" type="text/css" href="resources/css/silk.css?v=20150806" />
 <link rel="stylesheet" type="text/css" href="resources/css/ext_css_patch.css" />
 <script type="text/javascript" src="resources/js/ext-3.4.0/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="resources/js/ext-3.4.0/ext-all.js"></script>
@@ -16,7 +16,7 @@
 <script type="text/javascript" src="module/A_sys/docs.js?20150901"></script>
 <script type="text/javascript" src="module/A_sys/ext-lang-zh_CN.js"></script>
 <script type="text/javascript" src="module/A_sys/tree.js?v20150816"></script>
-<title>开发者基地</title>
+<title>内容管理</title>
 </head>
 <body scroll="no">
 
@@ -132,23 +132,14 @@ Ext.onReady(function(){
 		   ux + 'toolstips',
 		   ux + 'shortcuts',
 		   ux+'multidom',
-		   //'demos/workers/gears_init',
 		   ux+'uxworkers',
-		   
-		   
 		   '@uxmedia',
 		   '@uxflash',
-		   
 		   '@audioevents',
 		   'resources/js/sys/demowin',
-		   ux+'mif',
+		    ux+'mif',
 		   'module/B_mif/startup'
 		  );
-     
-      //alert("");
-      
-      
-      
 });
 
 var updateUserPassWordForm = new Ext.FormPanel({
