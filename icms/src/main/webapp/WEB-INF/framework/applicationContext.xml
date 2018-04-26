@@ -79,17 +79,6 @@
         <property name="acquireRetryAttempts"><value>${jdbc.system.pool.c3p0.acquireRetryAttempts}</value></property>
 	</bean>
 	
-	<!-- JDBC数据源MAP -->
-	<bean id="multiJdbcDataSourceMap" class="com.bplow.base.dbsource.DbSourceMap">
-		<property name="targetDataSources">
-			<map key-type="java.lang.String" >
-				<entry key="ds1" value-ref="dataSource"  />
-				<entry key="ds2" value-ref="dataSource"  />
-			</map>
-		</property>
-		<property name="defaultTargetDataSource" ref="dataSource"/>  
-	</bean>
-
     <!-- Connection Info, 使用P6spy记录sql 
     <bean id="otherdataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">		
 		<property name="driverClass" value="${other_jdbc.driver}" />

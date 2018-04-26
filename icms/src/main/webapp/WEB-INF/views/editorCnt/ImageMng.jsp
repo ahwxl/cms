@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="/newcms/resources/js/ckfinder2.1/ckfinder.js"></script>
+<script type="text/javascript" src="/newcms/resources/js/ckfinder2.1/ckfinder.js?20180426"></script>
 <style type="text/css"></style>
 <title>图片管理</title>
 </head>

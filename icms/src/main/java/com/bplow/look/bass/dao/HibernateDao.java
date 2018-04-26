@@ -15,27 +15,17 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.ResultTransformer;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.util.Assert;
-import com.bplow.look.bass.dao.Page;
-import com.bplow.look.bass.dao.PropertyFilter;
-import com.bplow.look.bass.dao.PropertyFilter.MatchType;
-import com.bplow.look.bass.utils.ReflectionUtils;
 
 import com.bplow.look.bass.IPagination;
 import com.bplow.look.bass.SimplePagination;
+import com.bplow.look.bass.dao.PropertyFilter.MatchType;
 
 /**
  * 封装SpringSide扩展功能的Hibernat DAO泛型基类.

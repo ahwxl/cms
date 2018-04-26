@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.AbstractLobCreatingPreparedStatementCallback;
+import org.springframework.jdbc.support.lob.LobCreator;
 import org.springframework.jdbc.support.lob.LobHandler;
 
 import com.bplow.look.bass.BaseJdbcDaoSupport;
@@ -24,8 +25,7 @@ import com.bplow.look.bass.dao.usertype.SQLEntity;
 import com.bplow.todo.freemark_ex.dao.entity.FmContent;
 import com.bplow.todo.freemark_ex.dao.entity.TbFreemarkInfo;
 
-import org.springframework.jdbc.support.lob.LobCreator;
-
+@SuppressWarnings("deprecation")
 public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 
 	@Autowired
@@ -37,17 +37,16 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	 * 分页
 	 * 模板列表
 	 */
-	public IPagination queryForPagination(TbFreemarkInfo vo, int firstResult, int maxResults){
+    public IPagination queryForPagination(TbFreemarkInfo vo, int firstResult, int maxResults){
 		
 		SQLEntity sqlEntity = new SQLEntity();
 		sqlEntity.append(" select a.id, a.tmpl_name  from tb_freemarktmpl a ");
 		
-		
 		sqlEntity.append(" ");
 
-		System.out.println("模板列表查看sql:"+sqlEntity.toString());
-		return this.queryForPaginationByMySql(sqlEntity.toString(), null, new RowMapper() {
-		    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+		log.info("模板列表查看sql:"+sqlEntity.toString());
+		return this.queryForPaginationByMySql(sqlEntity.toString(), null, new RowMapper<TbFreemarkInfo>() {
+		    public TbFreemarkInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
 		    	TbFreemarkInfo vo = new TbFreemarkInfo();
 		    	vo.setId(rs.getString("id"));
 		    	vo.setTmpl_name(rs.getString("tmpl_name"));
@@ -125,8 +124,8 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 		
 		String sql = "select a.id, a.content,a.operate_date,a.cnt_caption,a.catalog_id  from fm_content a where a.id = ? ";
 		
-		return this.getJdbcTemplate().queryForObject(sql, new RowMapper() {
-		    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+		return this.getJdbcTemplate().queryForObject(sql, new RowMapper<FmContent>() {
+		    public FmContent mapRow(ResultSet rs, int rowNum) throws SQLException {
 		    	FmContent fmContentTmp = new FmContent();
 		    	fmContentTmp.setId(rs.getString("id"));
 		    	fmContentTmp.setCnt_caption( rs.getString("cnt_caption"));
@@ -163,8 +162,8 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 		sqlEntity.append(" order by a.operate_date desc ");
 
 		System.out.println("查询文章列表sql:"+sqlEntity.toString());
-		return this.queryForPaginationByMySql(sqlEntity.toString(), null, new RowMapper() {
-		    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+		return this.queryForPaginationByMySql(sqlEntity.toString(), null, new RowMapper<FmContent>() {
+		    public FmContent mapRow(ResultSet rs, int rowNum) throws SQLException {
 		    	FmContent fmContentTmp = new FmContent();
 		    	fmContentTmp.setId(rs.getString("id"));
 		    	fmContentTmp.setCnt_caption( rs.getString("cnt_caption"));
@@ -189,13 +188,14 @@ public class FreeMarkJdbcDao extends BaseJdbcDaoSupport{
 	/**
 	 * 获取所有二级菜单
 	 */
-	public List getAllSecondMenu(FmContent fmcontent){
+	@SuppressWarnings("rawtypes")
+    public List getAllSecondMenu(FmContent fmcontent){
 		HQLEntity hql = new HQLEntity();
 		hql.append(" SELECT a.catalog_id p_catalog_id,a.catalog_name p_catalog_name,b.catalog_id,b.catalog_name FROM fm_catalog a left join fm_catalog b on ");
 		hql.append("a.catalog_id=b.parent_catalog_id where a.parent_catalog_id='0000' order by a.order_id asc");
 		
-		return this.queryForList(hql,new RowMapper() {
-		    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+		return this.queryForList(hql,new RowMapper<FmContent>() {
+		    public FmContent mapRow(ResultSet rs, int rowNum) throws SQLException {
 		    	FmContent fmContentTmp = new FmContent();
 		    	fmContentTmp.setCatalog_id(rs.getString("catalog_id"));
 		    	fmContentTmp.setCnt_caption(rs.getString("catalog_name"));
