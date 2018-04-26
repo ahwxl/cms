@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8"%>
-
+<div id="hello-win" class="x-hidden">
+    <div class="x-window-header">添加目录</div>
+</div>
 <script type="text/javascript">
 	var catalogTree, Virtual, root,deptid;
 
@@ -403,7 +405,7 @@
     });
 	//弹出窗口
 	var mywin = new Ext.Window({
-        //applyTo:'hello-win',
+        applyTo:'hello-win',
         layout:'fit',
         width:600,
         height:400,
@@ -682,7 +684,7 @@ pagesize_combo.on("select", function(comboBox) {
 
 
 
-    //aimobj.add(catalogTree);
+    aimobj.add(catalogTree);
     aimobj.add(mygrid);
     aimobj.doLayout();	
 	
