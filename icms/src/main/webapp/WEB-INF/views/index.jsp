@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ext-all.css" />
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/ux-all.css" />
 <link rel="stylesheet" type="text/css" href="resources/js/ext-3.4.0/resources/css/xtheme-gray.css" />
-<!----><link rel="stylesheet" type="text/css" href="resources/css/style.css?v=20150805" />
+<!----><link rel="stylesheet" type="text/css" href="resources/css/style.css?v=20150808" />
 <!----><link rel="stylesheet" type="text/css" href="resources/css/silk.css?v=20150806" />
 <link rel="stylesheet" type="text/css" href="resources/css/ext_css_patch.css" />
 <script type="text/javascript" src="resources/js/ext-3.4.0/adapter/ext/ext-base.js"></script>
@@ -28,10 +28,10 @@
     </div>
 </div>
 
-<div id="header">
+<div id="header" style="background-color: #025b80;">
     <!--<img style="margin-left: 5px" src="" alt="Ext JS API Documentation" height="50" width="210" />-->
-    <div style="float:left;width:300px;"><h1 class="sys_logo_bg1"><!-- 协作管理平台 --></h1></div>
-    <div style="float:right; margin-top: 15px;margin-right: 10px;color: #CCC">
+    <div style="float:left;width:300px;margin-top:9px;margin-left:10px;color:white;"><h1 class="sys_logo_bg1">内容管理平台<!-- 协作管理平台 --></h1></div>
+    <div style="float:right; margin-top: 15px;margin-right: 10px;color:white;">
                     <a href="#" onclick="updateUserPassWordWin()" >欢迎</a> | 
         <a href="loginOut" style="padding:5px">退出</a> | 
         <a href="http://www.landfalcon.com/" style="padding:5px" target="_black">联系我们</a>

@@ -59,7 +59,7 @@ html, body {
     top:35%;
     left:43%;
     color:#444;
-    background-image:url(images/default/shared/large-loading.gif);
+    background-image:url(../js/ext-3.4.0/resources/images/default/shared/large-loading.gif);
     background-repeat: no-repeat;
     background-position:left 5px;
     padding:10px 10px 10px 38px;
@@ -755,3 +755,7 @@ div.hr {
 .x-grid3-row-body p {
     margin:5px 5px 10px 5px !important;
 }
+
+.upload-icon {
+            background: url('../images/fam/image_add.png') no-repeat 0 0 !important;
+        }

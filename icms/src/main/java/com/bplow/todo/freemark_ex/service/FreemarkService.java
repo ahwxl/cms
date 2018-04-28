@@ -40,232 +40,229 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-
 @Transactional
 public class FreemarkService {
-	
-	@Autowired
-	public FreeMarkJdbcDao freeMarkJdbcDao;
-	@Autowired
-	public FreeMarkHibernateDao freeMarkHibernateDao;
-	
-//	private MutableAclService mutableAclService;
-	
-	private Log syslog = LogFactory.getLog(FreemarkService.class);
-	
-	private Configuration freemarkerConfig;
-	
-	private Template template;
-	private static final String ENCODING = "utf-8";
-	/**
-	 * 注入Freemarker引擎配置,构造Freemarker 邮件内容模板.
-	 */
-	
-	public void setFreemarkerConfig(Configuration freemarkerConfig) throws IOException {
-		this.freemarkerConfig = freemarkerConfig;
-		//根据freemarkerConfiguration的templateLoaderPath载入文件.
-		template = freemarkerConfig.getTemplate("mailTemplate.ftl", ENCODING);
-		template.setEncoding("GBK");
-	}
-	//-----------------------------------------模板管理----------------------------------------------------
-	/**
-	 * 保存模板
-	 */
-	public void saveFreemarkTmp(TbFreemarkInfo vo){
-		
-		freeMarkHibernateDao.save(vo);
-	}
-	
-	
-	/*
-	 *查看模板列表 
-	 */
-	public List getFreemarkTmp(TbFreemarkInfo vo){
-		
-		List list = freeMarkJdbcDao.queryForPagination(vo, 0, 10).getResults();
-		System.out.println("列表大小："+list.size());
-		
-		return null;
-	}
-	
-	/**
-	 * ajax 
-	 * 获取模板列表
-	 */
-	public String getFreemarkTemplListToJson(int firstResult,int maxResults){
-		return null;
-	}
-	
-	
-	/**
-	 * @throws TemplateException 
-	 * @throws IOException 
-	 * 
-	 */
-	public String executeFtl() throws IOException, TemplateException{
-		
-		Map context = new HashMap();
-		context.put("userName", "张三 GGGGGGGGGGGGGGGG");
-		String cnt = FreeMarkerTemplateUtils.processTemplateIntoString(template, context);
-		
-		System.out.println(cnt);
-		
-		return cnt;
-	}
-	
-	/*
-	 * 保存发布文章
-	 */
-	public  void saveCnt(FmContent vo) throws Exception{
-		
-		vo.setId(UUID.randomUUID().toString().replace("-", ""));
-		vo.setOperate_date(new Date());
-		vo.setIs_delete_flag("0");
-		freeMarkJdbcDao.saveCnt(vo);
-		
-	}
-	
-    public void editorCnt(FmContent vo) throws Exception{
-		vo.setOperate_date(new Date());
-		vo.setIs_delete_flag("0");
-		freeMarkJdbcDao.updateCnt(vo);
-	}
 
-	/**
-	 * 获取文章
-	 */
-	public FmContent getCntById(String id){
-		
-		FmContent fmcnt = freeMarkJdbcDao.getCntById(id);
-		
-		return fmcnt;
-	}
-	/*
-	 * 删除文章
-	 * */
-	public Boolean delCntById(String id){
-		freeMarkJdbcDao.delCnt(id);
-		return true;
-	}
-	
-	
-	/**
-	 * 获取文章内容  json
-	 * @param id
-	 * @return
-	 * @throws JsonGenerationException
-	 * @throws JsonMappingException
-	 * @throws IOException
-	 */
-	public String getCntByIdToJson(String id) throws JsonGenerationException, JsonMappingException, IOException{
-		FmContent fmcnt = freeMarkJdbcDao.getCntById(id);
+    @Autowired
+    public FreeMarkJdbcDao      freeMarkJdbcDao;
+    @Autowired
+    public FreeMarkHibernateDao freeMarkHibernateDao;
+
+    //	private MutableAclService mutableAclService;
+
+    private Log                 syslog   = LogFactory.getLog(FreemarkService.class);
+
+    private Configuration       freemarkerConfig;
+
+    private Template            template;
+    private static final String ENCODING = "utf-8";
+
+    /**
+     * 注入Freemarker引擎配置,构造Freemarker 邮件内容模板.
+     */
+
+    public void setFreemarkerConfig(Configuration freemarkerConfig) throws IOException {
+        this.freemarkerConfig = freemarkerConfig;
+        //根据freemarkerConfiguration的templateLoaderPath载入文件.
+        template = freemarkerConfig.getTemplate("mailTemplate.ftl", ENCODING);
+        template.setEncoding("GBK");
+    }
+
+    //-----------------------------------------模板管理----------------------------------------------------
+    /**
+     * 保存模板
+     */
+    public void saveFreemarkTmp(TbFreemarkInfo vo) {
+
+        freeMarkHibernateDao.save(vo);
+    }
+
+    /*
+     *查看模板列表 
+     */
+    public List getFreemarkTmp(TbFreemarkInfo vo) {
+
+        List list = freeMarkJdbcDao.queryForPagination(vo, 0, 10).getResults();
+        System.out.println("列表大小：" + list.size());
+
+        return null;
+    }
+
+    /**
+     * ajax 
+     * 获取模板列表
+     */
+    public String getFreemarkTemplListToJson(int firstResult, int maxResults) {
+        return null;
+    }
+
+    /**
+     * @throws TemplateException 
+     * @throws IOException 
+     * 
+     */
+    public String executeFtl() throws IOException, TemplateException {
+
+        Map context = new HashMap();
+        context.put("userName", "张三 GGGGGGGGGGGGGGGG");
+        String cnt = FreeMarkerTemplateUtils.processTemplateIntoString(template, context);
+
+        System.out.println(cnt);
+
+        return cnt;
+    }
+
+    /*
+     * 保存发布文章
+     */
+    public void saveCnt(FmContent vo) throws Exception {
+
+        vo.setId(UUID.randomUUID().toString().replace("-", ""));
+        vo.setOperate_date(new Date());
+        vo.setIs_delete_flag("0");
+        freeMarkJdbcDao.saveCnt(vo);
+
+    }
+
+    public void editorCnt(FmContent vo) throws Exception {
+        vo.setOperate_date(new Date());
+        vo.setIs_delete_flag("0");
+        freeMarkJdbcDao.updateCnt(vo);
+    }
+
+    /**
+     * 获取文章
+     */
+    public FmContent getCntById(String id) {
+
+        FmContent fmcnt = freeMarkJdbcDao.getCntById(id);
+
+        return fmcnt;
+    }
+
+    /*
+     * 删除文章
+     * */
+    public Boolean delCntById(String id) {
+        freeMarkJdbcDao.delCnt(id);
+        return true;
+    }
+
+    /**
+     * 获取文章内容  json
+     * @param id
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    public String getCntByIdToJson(String id) throws JsonGenerationException, JsonMappingException,
+                                             IOException {
+        FmContent fmcnt = freeMarkJdbcDao.getCntById(id);
         String reStr = (new JsonStructureDataHelp(fmcnt)).getObjectToJsonString();
-		return reStr;
-	}
-	
+        return reStr;
+    }
 
-	/**
-	 * 获取文章列表
-	 */
-	
-	public String getCntList(FmContent vo,int firstResult,int maxResults){
-		
-		syslog.info("【获取文章列表】，【1】");
-		
-		
-		IPagination ipagination =  freeMarkJdbcDao.getCntList(vo, firstResult, maxResults);
-		
-		List cntlist = ipagination.getResults();
-		
-		StringBuffer sb = new StringBuffer();
-		
-		sb.append("{ topics:[");
-		int num = 1;
-		for(Iterator<FmContent> fmcIterator = cntlist.iterator();fmcIterator.hasNext();){
-			FmContent fmCntVo = fmcIterator.next();
-			if(num == 1){
-				sb.append("");
-				num += 1;
-			}else{
-				sb.append(",");
-			}
-			sb.append("{cnt_id:'").append(fmCntVo.getId()).append("',cnt_caption:'").append(fmCntVo.getCnt_caption())
-			  .append("',catalog_id:'").append(fmCntVo.getCatalog_id()).append("',operate_date:'").append(fmCntVo.getOperate_date()).append("'}");
-			
-		}
-		sb.append("],totalCount:").append(ipagination.getAllCount()).append("}");
-		
-		return sb.toString();
-	}
-	
-	/**
-	 * 发布内容
-	 * @throws IOException 
-	 * @throws TemplateException 
-	 */
-	public String doPublicCnt(String id,HttpServletRequest request) throws IOException, TemplateException{
-		//获取文章内容
-		FmContent fmcnt = freeMarkJdbcDao.getCntById(id);
-		
-		//获取模板
-		Template tmp = freemarkerConfig.getTemplate("article_1.ftl", ENCODING);
-		tmp.setEncoding("utf-8");
-		
-		//
-		List cataloglist = freeMarkHibernateDao.getFmCatalogList(new FmCatalog("0000"));
-		
-		Map context = new HashMap();
-		context.put("caption", fmcnt.getCnt_caption());
-		context.put("content", fmcnt.getContent());
-		context.put("catalogList",cataloglist);
-		String cnt = FreeMarkerTemplateUtils.processTemplateIntoString(tmp, context);
-		
-		syslog.info(cnt);
-		//String fileaddr = request.getRealPath("OutputHTML/web/"+id+".html");
-		String ctxPath = request.getSession().getServletContext().getRealPath("");
-		String outputHtmlFileAddr = ctxPath+"/OutputHTML/web/"+id+".html";
-		File newhtmlfile = new File(outputHtmlFileAddr);
-		if(!newhtmlfile.exists()){
-			newhtmlfile.createNewFile();
-		}
-		
-		FileUtils.writeStringToFile(newhtmlfile, cnt);
-		
-		return "ok";
-	}
-	/**
-	 * 修改文章内容
-	 * @param vo
-	 * @return
-	 * @throws IOException
-	 */
-	public String upateCntByIdToJson(FmContent vo) throws IOException{
-		freeMarkJdbcDao.updateCnt(vo);
-		return "ok";
-	}
-	
-	//添加用户权限
-	public String addUserRight(){
-		
-		/*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		if (principal instanceof UserDetails) {
-			  String username = ((UserDetails)principal).getUsername();
-		} else {
-			  String username = principal.toString();
-		}*/
-		
-		//mutableAclService.
-		
-		
-		
-		
-		
-		return null;
-	}
-	
-	
-	protected String getUsername() {
+    /**
+     * 获取文章列表
+     */
+
+    public String getCntList(FmContent vo, int firstResult, int maxResults) {
+
+        syslog.info("【获取文章列表】，【1】");
+
+        IPagination ipagination = freeMarkJdbcDao.getCntList(vo, firstResult, maxResults);
+
+        List cntlist = ipagination.getResults();
+
+        StringBuffer sb = new StringBuffer();
+
+        sb.append("{ topics:[");
+        int num = 1;
+        for (Iterator<FmContent> fmcIterator = cntlist.iterator(); fmcIterator.hasNext();) {
+            FmContent fmCntVo = fmcIterator.next();
+            if (num == 1) {
+                sb.append("");
+                num += 1;
+            } else {
+                sb.append(",");
+            }
+            sb.append("{cnt_id:'").append(fmCntVo.getId()).append("',cnt_caption:'")
+                .append(fmCntVo.getCnt_caption()).append("',catalog_id:'")
+                .append(fmCntVo.getCatalog_id()).append("',operate_date:'")
+                .append(fmCntVo.getOperate_date()).append("'}");
+
+        }
+        sb.append("],totalCount:").append(ipagination.getAllCount()).append("}");
+
+        return sb.toString();
+    }
+
+    /**
+     * 发布内容
+     * @throws IOException 
+     * @throws TemplateException 
+     */
+    public String doPublicCnt(String id, HttpServletRequest request) throws IOException,
+                                                                    TemplateException {
+        //获取文章内容
+        FmContent fmcnt = freeMarkJdbcDao.getCntById(id);
+
+        //获取模板
+        Template tmp = freemarkerConfig.getTemplate("article_1.ftl", ENCODING);
+        tmp.setEncoding("utf-8");
+
+        //
+        List cataloglist = freeMarkHibernateDao.getFmCatalogList(new FmCatalog("0000"));
+
+        Map context = new HashMap();
+        context.put("caption", fmcnt.getCnt_caption());
+        context.put("content", fmcnt.getContent());
+        context.put("catalogList", cataloglist);
+        String cnt = FreeMarkerTemplateUtils.processTemplateIntoString(tmp, context);
+
+        syslog.info(cnt);
+        //String fileaddr = request.getRealPath("OutputHTML/web/"+id+".html");
+        String ctxPath = request.getSession().getServletContext().getRealPath("");
+        String outputHtmlFileAddr = ctxPath + "/OutputHTML/web/" + id + ".html";
+        File newhtmlfile = new File(outputHtmlFileAddr);
+        if (!newhtmlfile.exists()) {
+            newhtmlfile.createNewFile();
+        }
+
+        FileUtils.writeStringToFile(newhtmlfile, cnt);
+
+        return "ok";
+    }
+
+    /**
+     * 修改文章内容
+     * @param vo
+     * @return
+     * @throws IOException
+     */
+    public String upateCntByIdToJson(FmContent vo) throws IOException {
+        freeMarkJdbcDao.updateCnt(vo);
+        return "ok";
+    }
+
+    //添加用户权限
+    public String addUserRight() {
+
+        /*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        if (principal instanceof UserDetails) {
+        	  String username = ((UserDetails)principal).getUsername();
+        } else {
+        	  String username = principal.toString();
+        }*/
+
+        //mutableAclService.
+
+        return null;
+    }
+
+    protected String getUsername() {
         /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth.getPrincipal() instanceof UserDetails) {
@@ -273,156 +270,156 @@ public class FreemarkService {
         } else {
             return auth.getPrincipal().toString();
         }*/
-		return null;
+        return null;
     }
-	
-	
-	//--------------------------------目录管理----------------------------------------------
-	
-	public void saveFmCatalog(FmCatalog vo ){
-		
-		vo.setCatalogId(UUID.randomUUID().toString().replace("-", ""));
-		//vo.setpCatalogId("0000");
-		vo.setOperateDate(new Date());
-		freeMarkHibernateDao.save(vo);
-	}
-	
-	/**
-	 * 获取 目录对象 根据id
-	 * @param vo
-	 * @return
-	 * @throws Exception
-	 */
-	public String getFmCatalogByIdToJson(FmCatalog vo) throws Exception{
-		
-		FmCatalog tmpvo = freeMarkHibernateDao.getFmCatalog(vo);
-		
-		ObjectMapper mapper = new ObjectMapper();
+
+    //--------------------------------目录管理----------------------------------------------
+
+    public void saveFmCatalog(FmCatalog vo) {
+
+        vo.setCatalogId(UUID.randomUUID().toString().replace("-", ""));
+        vo.setOperateDate(new Date());
+        freeMarkHibernateDao.save(vo);
+    }
+
+    /**
+     * 获取 目录对象 根据id
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    public String getFmCatalogByIdToJson(FmCatalog vo) throws Exception {
+
+        FmCatalog tmpvo = freeMarkHibernateDao.getFmCatalog(vo);
+
+        ObjectMapper mapper = new ObjectMapper();
         StringWriter sw = new StringWriter();
         mapper.writeValue(sw, tmpvo);
-		
-		return sw.toString();
-	}
-	/**
-	 * 修改目录
-	 */
-	public void editorFmCatalog(FmCatalog vo){
-		
-		FmCatalog tmpvo = freeMarkHibernateDao.getFmCatalog(vo);
-		
-		tmpvo.setCatalogName(vo.getCatalogName());
-		tmpvo.setCatalogType(vo.getCatalogType());
-		tmpvo.setImageSrc(vo.getImageSrc());
-		tmpvo.setpCatalogId(vo.getpCatalogId());
-		tmpvo.setCatalogDesc(vo.getCatalogDesc());
-		tmpvo.setOrderId(vo.getOrderId());
-		tmpvo.setOperateDate(new Date());
-		
-		freeMarkHibernateDao.editorFmCatalog(tmpvo);
-		
-	}
-	
-	
-	
+
+        return sw.toString();
+    }
+
+    /**
+     * 修改目录
+     */
+    public void editorFmCatalog(FmCatalog vo) {
+
+        FmCatalog tmpvo = freeMarkHibernateDao.getFmCatalog(vo);
+
+        tmpvo.setCatalogName(vo.getCatalogName());
+        tmpvo.setCatalogType(vo.getCatalogType());
+        tmpvo.setImageSrc(vo.getImageSrc());
+        tmpvo.setpCatalogId(vo.getpCatalogId());
+        tmpvo.setCatalogDesc(vo.getCatalogDesc());
+        tmpvo.setOrderId(vo.getOrderId());
+        tmpvo.setOperateDate(new Date());
+
+        freeMarkHibernateDao.editorFmCatalog(tmpvo);
+
+    }
+
     /**
      * 删除对象
      */
-     public void delFmCatalog(FmCatalog vo){
-    	
-		freeMarkHibernateDao.delFmCatalog(vo);
-		
-	}
-	/**
-	 * 获取目录列表
-	 * @param vo
-	 * @return
-	 */
-     public String getFmCatalogList(String pcatalogid){
-    	 
-    	 FmCatalog vo = new FmCatalog();
-    	 vo.setpCatalogId(pcatalogid);
-    	 List list = freeMarkHibernateDao.getFmCatalogList(vo);
-    	 
-    	 StringBuffer rtstr = new StringBuffer();
-    	 rtstr.append("[");
-    	 int i = 1;
-    	 for(Iterator<FmCatalog> fmcatalogItr = list.iterator();fmcatalogItr.hasNext();){
-    		 FmCatalog tmpvo = fmcatalogItr.next();   		 
-    		 if(i == 1){
-    			rtstr.append("{");
-    		    i +=1;
-    		 }
-    		 else rtstr.append(",{");
-    		 rtstr.append("text:'").append(tmpvo.getCatalogName()).append("',id:'").append(tmpvo.getCatalogId())
-    		 .append("',cls:'").append(tmpvo.getCatalogType()).append("'}");
-    		 
-    	 }
-    	 rtstr.append("]");
-    	 return rtstr.toString();
-    	 
-     }
-     
-     public String getFmCatalogListJsonGridData(String pcatalogid) throws Exception{
-    	 
-    	 FmCatalog vo = new FmCatalog();
-    	 vo.setpCatalogId(pcatalogid);
-    	 List list = freeMarkHibernateDao.getFmCatalogList(vo);
-    	 
-    	 String jsonGridData = new JsonStructureDataHelp(list).getJsonByList();
-    	 
-    	 return jsonGridData;
-     }
-     
-     /**
-      * 发布栏目信息
-      * @param vo
-      * @return
-      * @throws Exception
-      */
-     public String doPublicCatalogAction(FmCatalog vo){
-    	 
-    	 return "";
-     }
-     
-	
-	//------------------------------角色管理------------------------------------------------
-	
-	//obtain all roles
-     public String getAllRoleJson(SysRole vo) throws Exception{
-    	 
-    	 List list = freeMarkHibernateDao.getAllRoles(vo);
-    	 
-    	 
-    	 String jsonGridData = new JsonStructureDataHelp(list).getJsonByList();
-    	 
-    	 return jsonGridData;
-     }
-	
-   //------------------------------用户管理------------------------------------------------
- 	
- 	//obtain all users
-    public String getAllUserJson(SysUser vo)throws Exception{
-    	
-    	IPagination ipagination = freeMarkHibernateDao.getAllUsers(vo,vo.getStart(),vo.getLimit());
-   	 
-   	 
-   	    String jsonGridData = new JsonStructureDataHelp(ipagination.getResults(),ipagination.getAllCount(),vo.getLimit()).getJsonByList();
-    	
-    	return jsonGridData;
-    } 
-	
+    public void delFmCatalog(FmCatalog vo) {
+
+        freeMarkHibernateDao.delFmCatalog(vo);
+
+    }
+
+    /**
+     * 获取目录列表
+     * @param vo
+     * @return
+     */
+    public String getFmCatalogList(String pcatalogid) {
+
+        FmCatalog vo = new FmCatalog();
+        vo.setpCatalogId(pcatalogid);
+        List list = freeMarkHibernateDao.getFmCatalogList(vo);
+
+        StringBuffer rtstr = new StringBuffer();
+        rtstr.append("[");
+        int i = 1;
+        for (Iterator<FmCatalog> fmcatalogItr = list.iterator(); fmcatalogItr.hasNext();) {
+            FmCatalog tmpvo = fmcatalogItr.next();
+            if (i == 1) {
+                rtstr.append("{");
+                i += 1;
+            } else
+                rtstr.append(",{");
+            rtstr.append("text:'").append(tmpvo.getCatalogName()).append("',id:'")
+                .append(tmpvo.getCatalogId()).append("',cls:'").append(tmpvo.getCatalogType())
+                .append("'}");
+
+        }
+        rtstr.append("]");
+        return rtstr.toString();
+
+    }
+
+    public String getFmCatalogListJsonGridData(String pcatalogid) throws Exception {
+
+        FmCatalog vo = new FmCatalog();
+        vo.setpCatalogId(pcatalogid);
+        List list = freeMarkHibernateDao.getFmCatalogList(vo);
+
+        String jsonGridData = new JsonStructureDataHelp(list).getJsonByList();
+
+        return jsonGridData;
+    }
+
+    /**
+     * 发布栏目信息
+     * @param vo
+     * @return
+     * @throws Exception
+     */
+    public String doPublicCatalogAction(FmCatalog vo) {
+
+        return "";
+    }
+
+    //------------------------------角色管理------------------------------------------------
+
+    //obtain all roles
+    public String getAllRoleJson(SysRole vo) throws Exception {
+
+        List list = freeMarkHibernateDao.getAllRoles(vo);
+
+        String jsonGridData = new JsonStructureDataHelp(list).getJsonByList();
+
+        return jsonGridData;
+    }
+
+    //------------------------------用户管理------------------------------------------------
+
+    //obtain all users
+    public String getAllUserJson(SysUser vo) throws Exception {
+
+        IPagination ipagination = freeMarkHibernateDao
+            .getAllUsers(vo, vo.getStart(), vo.getLimit());
+
+        String jsonGridData = new JsonStructureDataHelp(ipagination.getResults(),
+            ipagination.getAllCount(), vo.getLimit()).getJsonByList();
+
+        return jsonGridData;
+    }
+
     //---------------------------------组织机构管理-------------------------------------------------
-    public void saveDepartment(SysDepartment vo){
-    	vo.setDepartid(UUID.randomUUID().toString().replace("-", ""));
-    	freeMarkHibernateDao.saveDepartment(vo);
+    public void saveDepartment(SysDepartment vo) {
+        vo.setDepartid(UUID.randomUUID().toString().replace("-", ""));
+        freeMarkHibernateDao.saveDepartment(vo);
     }
-    public void delDepartment(SysDepartment vo){
-    	freeMarkHibernateDao.delDepartment(vo);
+
+    public void delDepartment(SysDepartment vo) {
+        freeMarkHibernateDao.delDepartment(vo);
     }
-    public void updateDepartment(SysDepartment vo){
-    	freeMarkHibernateDao.updateDepartment(vo);
+
+    public void updateDepartment(SysDepartment vo) {
+        freeMarkHibernateDao.updateDepartment(vo);
     }
-    
+
     /**
      * 组织结构
      * 返回 tree
@@ -430,14 +427,14 @@ public class FreemarkService {
      * @throws JsonMappingException 
      * @throws JsonGenerationException 
      */
-    public String getDepartmentListTreeJson(SysDepartment vo) throws Exception{
-    	List list = freeMarkHibernateDao.getDepartmentListByPid(vo);
-    	String jsonTreeData = new JsonStructureDataHelp(list).getJsonTreeByList().replace("departid", "id").replace("departname", "text")
-    			.replace("sortid", "cls");
-    	
-    	return jsonTreeData;
+    public String getDepartmentListTreeJson(SysDepartment vo) throws Exception {
+        List list = freeMarkHibernateDao.getDepartmentListByPid(vo);
+        String jsonTreeData = new JsonStructureDataHelp(list).getJsonTreeByList()
+            .replace("departid", "id").replace("departname", "text").replace("sortid", "cls");
+
+        return jsonTreeData;
     }
-    
+
     /**
      * 组织结构
      * 返回 grid
@@ -445,26 +442,25 @@ public class FreemarkService {
      * @throws JsonMappingException 
      * @throws JsonGenerationException 
      */
-    public String getDepartmentListGridJson(SysDepartment vo) throws Exception{
-    	List list = freeMarkHibernateDao.getDepartmentListByPid(vo);
-    	String jsonTreeData = new JsonStructureDataHelp(list).getJsonByList();
-    	
-    	return jsonTreeData;
+    public String getDepartmentListGridJson(SysDepartment vo) throws Exception {
+        List list = freeMarkHibernateDao.getDepartmentListByPid(vo);
+        String jsonTreeData = new JsonStructureDataHelp(list).getJsonByList();
+
+        return jsonTreeData;
     }
-    
+
     /**
      * page
      */
-    public String getDepartmentListPage(SysDepartment vo)throws Exception{
-    	
-    	IPagination ipagination = freeMarkHibernateDao.getDepartmentListPage(vo);
-    	
-    	return ipagination.getJsonByList();
+    public String getDepartmentListPage(SysDepartment vo) throws Exception {
+
+        IPagination ipagination = freeMarkHibernateDao.getDepartmentListPage(vo);
+
+        return ipagination.getJsonByList();
     }
-    
-    
+
     //----------------------------------------系统参数字典---------------------------------------
-    
+
     /**
      * 参数列表
      * json
@@ -474,47 +470,51 @@ public class FreemarkService {
      * @throws JsonMappingException 
      * @throws JsonGenerationException 
      */
-    public String getDicParaListByGroup(SysDicParamter vo) throws JsonGenerationException, JsonMappingException, IOException{
-    	
-    	List list = freeMarkHibernateDao.queryDicParaList(vo);
-    	String jsonTreeData = new JsonStructureDataHelp(list).getJsonByList();
-    	return jsonTreeData;
+    public String getDicParaListByGroup(SysDicParamter vo) throws JsonGenerationException,
+                                                          JsonMappingException, IOException {
+
+        List list = freeMarkHibernateDao.queryDicParaList(vo);
+        String jsonTreeData = new JsonStructureDataHelp(list).getJsonByList();
+        return jsonTreeData;
     }
-    public void addDicPara(SysDicParamter vo){
-    	freeMarkHibernateDao.saveSysDicPara(vo);
+
+    public void addDicPara(SysDicParamter vo) {
+        freeMarkHibernateDao.saveSysDicPara(vo);
     }
-    public void delDicPara(SysDicParamter vo){
-    	
-    	String idArrayStr = vo.getIdArray();
-    	String idArray[] = null;
-    	Integer[] idArrayInt = null;
-    	if(StringUtils.isNotBlank(idArrayStr)){
-    		idArray =  idArrayStr.split(",");
-    		idArrayInt = new Integer[idArray.length];
-    		for(int i =0;i<idArray.length;i++){
-    			idArrayInt[i] = Integer.parseInt(idArray[i]);
-    		}
-    	}
-    	if(null != idArrayInt && idArrayInt.length > 0){
-    		for(Integer i : idArrayInt){
-    			SysDicParamter tmp = new SysDicParamter();
-    			tmp.setId(i);
-    			freeMarkHibernateDao.delSysDicPara(tmp);
-        	}
-    	}
-    	
+
+    public void delDicPara(SysDicParamter vo) {
+
+        String idArrayStr = vo.getIdArray();
+        String idArray[] = null;
+        Integer[] idArrayInt = null;
+        if (StringUtils.isNotBlank(idArrayStr)) {
+            idArray = idArrayStr.split(",");
+            idArrayInt = new Integer[idArray.length];
+            for (int i = 0; i < idArray.length; i++) {
+                idArrayInt[i] = Integer.parseInt(idArray[i]);
+            }
+        }
+        if (null != idArrayInt && idArrayInt.length > 0) {
+            for (Integer i : idArrayInt) {
+                SysDicParamter tmp = new SysDicParamter();
+                tmp.setId(i);
+                freeMarkHibernateDao.delSysDicPara(tmp);
+            }
+        }
+
     }
-    
-    public void editorDicPara(SysDicParamter vo){
-    	SysDicParamter tmp = freeMarkHibernateDao.queryDicById(vo);
-    	
-    	freeMarkHibernateDao.editorSysDicPara(tmp);
+
+    public void editorDicPara(SysDicParamter vo) {
+        SysDicParamter tmp = freeMarkHibernateDao.queryDicById(vo);
+
+        freeMarkHibernateDao.editorSysDicPara(tmp);
     }
-    
-    public String queryDicById(SysDicParamter vo) throws JsonGenerationException, JsonMappingException, IOException{
-    	SysDicParamter tmp = freeMarkHibernateDao.queryDicById(vo);
-    	String jsonObjectStr = new JsonStructureDataHelp(tmp).getObjectToJsonString();
-    	return jsonObjectStr;
+
+    public String queryDicById(SysDicParamter vo) throws JsonGenerationException,
+                                                 JsonMappingException, IOException {
+        SysDicParamter tmp = freeMarkHibernateDao.queryDicById(vo);
+        String jsonObjectStr = new JsonStructureDataHelp(tmp).getObjectToJsonString();
+        return jsonObjectStr;
     }
-	
+
 }

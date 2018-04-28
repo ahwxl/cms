@@ -320,6 +320,7 @@
         labelAlign: 'top',
         frame:true,
         id:'addFormId',
+        fileUpload: true,
         //title: 'Multi Column, Nested Layouts and Anchoring',
         bodyStyle:'padding:5px 5px 0',
         width: 550,
@@ -355,7 +356,7 @@
                         ]
                     })
                 },{
-                    xtype:'textfield',
+                    xtype:'numberfield',
                     fieldLabel: '排序',
                     name: 'orderId',
                     value:'1',
@@ -365,9 +366,14 @@
                 columnWidth:.5,
                 layout: 'form',
                 items: [{
-                    xtype:'textfield',
+                    xtype:'fileuploadfield',
                     fieldLabel: '图片',
-                    name: 'imageSrc',
+                    id:'imagefile',
+                    name: 'imagefile',
+                    buttonText: '',
+                    buttonCfg: {
+                        iconCls: 'upload-icon'
+                    },
                     anchor:'95%'
                 },{
                     xtype:'textfield',
@@ -408,7 +414,7 @@
         applyTo:'hello-win',
         layout:'fit',
         width:600,
-        height:400,
+        height:460,
         closeAction:'hide',
         plain: true,
         buttons: [{
@@ -452,7 +458,7 @@
 		addForm.getForm().findField('catalogId').setValue(catalogObj.catalogId);
 		addForm.getForm().findField('catalogName').setValue(catalogObj.catalogName);
 		addForm.getForm().findField('catalogType').setValue(catalogObj.catalogType);
-		addForm.getForm().findField('imageSrc').setValue(catalogObj.imageSrc);
+		addForm.getForm().findField('imagefile').setValue(catalogObj.imageSrc);
 		addForm.getForm().findField('pCatalogName').setValue(catalogObj.pCatalogName);
 		addForm.getForm().findField('catalogDesc').setValue(catalogObj.catalogDesc);
 		addForm.getForm().findField('pCatalogId').setValue(catalogObj.pCatalogId);
@@ -490,7 +496,16 @@
 		
 		addForm.getForm().getEl().dom.action = url;
 		addForm.getForm().getEl().dom.method = 'POST';
-		addForm.getForm().submit();
+		addForm.getForm().submit({
+			success: function(form, action) {
+				selectedNode.reload();
+			    Ext.Msg.alert('Success', action.result.msg);
+			},
+			failure: function(form, action) {
+				Ext.Msg.alert('Failure', action.result.msg);
+			}
+			
+		});
 		mywin.hide();
 	}
 	
@@ -702,8 +717,5 @@ pagesize_combo.on("select", function(comboBox) {
     function openAddarticle(catalogID){
     	Ext.mainScreem.addNewTab(returnmif({id:'发布文章',title:'发布文章',src:'showAddCntPage?calalogId='+catalogID}),'发布文章');
     }
-    
-    
-    
     
 </script>
