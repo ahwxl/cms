@@ -73,7 +73,7 @@
 		enableDD : true,
 		lines : true,
 		rootVisible : true,
-		title : '目录树',
+		//title : '目录树',
 		border : false,
 		region : 'west',
 		containerScroll : true,
@@ -331,8 +331,13 @@
                 layout: 'form',
                 items: [{
                     xtype:'textfield',
-                    fieldLabel: '目录名称',
+                    fieldLabel: '名称',
                     name: 'catalogName',
+                    anchor:'95%'
+                },{
+                    xtype:'textfield',
+                    fieldLabel: '别名',
+                    name: 'secondName',
                     anchor:'95%'
                 },{
                 	xtype:          'combo',
@@ -350,8 +355,9 @@
                     store:          new Ext.data.JsonStore({
                         fields : ['name', 'value'],
                         data   : [
-                            {name : '产品',   value: '1'},
+                            {name : '产品',  value: '1'},
                             {name : '文章',  value: '2'},
+                            {name : '列表',  value: '3'},
                             {name : '字定义', value: '99'}
                         ]
                     })
@@ -435,6 +441,7 @@
 	*显示修改页面
 	*/
 	function showEditorCatalogWin(catalogId){
+		mywin.setTitle('修改目录');
 		Ext.Ajax.request({
 			   url : 'showEditorCatalogPage?catalogId='+catalogId ,
 			   method :'GET',
@@ -457,6 +464,7 @@
 		
 		addForm.getForm().findField('catalogId').setValue(catalogObj.catalogId);
 		addForm.getForm().findField('catalogName').setValue(catalogObj.catalogName);
+		addForm.getForm().findField('secondName').setValue(catalogObj.secondName);
 		addForm.getForm().findField('catalogType').setValue(catalogObj.catalogType);
 		addForm.getForm().findField('imagefile').setValue(catalogObj.imageSrc);
 		addForm.getForm().findField('pCatalogName').setValue(catalogObj.pCatalogName);
@@ -469,6 +477,7 @@
 	
 	//添加目录
 	function showAddCatalogWin(pCatalogName,pCatalogId){
+		mywin.setTitle('添加目录');
 		//alert(addForm.getForm().findField('first'));
 		addForm.getForm().reset();
 		addForm.getForm().findField('pCatalogName').setValue(pCatalogName);
@@ -479,7 +488,7 @@
 		if(mywin.getComponent('addFormId') == undefined ){
 			mywin.add(addForm);
 		}
-		
+		addForm.getForm().findField('actionFlag').setValue('');
 		//alert(mywin.getComponent('addFormId'));
 		
 		mywin.show();
@@ -677,7 +686,7 @@ pagesize_combo.on("select", function(comboBox) {
 	    //width: 600,
 	    //height: 300,
 	    //frame: true,
-	    title: '目录',
+	    //title: '目录',
 	    iconCls: 'icon-grid',
 	    bbar : bbar
 	});

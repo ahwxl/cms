@@ -1,6 +1,6 @@
 
 		Docs.classData =[{"id":"apidocs","iconCls":"icon-docs","text":"功能菜单","singleClickExpand":true,"leaf":false,"children":[                
-				{"href":"showrightMenu","text":"目录管理","id":"目录管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
+				{"href":"catalogPage","text":"目录管理","id":"目录管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,
 				{"href":"showArticle","text":"文章管理","id":"文章管理","isClass":true,"iconCls":"icon-cls","cls":"cls","leaf":true}
 				,

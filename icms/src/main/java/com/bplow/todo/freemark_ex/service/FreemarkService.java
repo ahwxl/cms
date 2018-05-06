@@ -307,6 +307,7 @@ public class FreemarkService {
         FmCatalog tmpvo = freeMarkHibernateDao.getFmCatalog(vo);
 
         tmpvo.setCatalogName(vo.getCatalogName());
+        tmpvo.setSecondName(vo.getSecondName());
         tmpvo.setCatalogType(vo.getCatalogType());
         tmpvo.setImageSrc(vo.getImageSrc());
         tmpvo.setpCatalogId(vo.getpCatalogId());

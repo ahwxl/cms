@@ -15,7 +15,7 @@
 <script type="text/javascript" src="module/A_sys/TabCloseMenu.js"></script>
 <script type="text/javascript" src="module/A_sys/docs.js?20150901"></script>
 <script type="text/javascript" src="module/A_sys/ext-lang-zh_CN.js"></script>
-<script type="text/javascript" src="module/A_sys/tree.js?v20150816"></script>
+<script type="text/javascript" src="module/A_sys/tree.js?v20150817"></script>
 <title>内容管理</title>
 </head>
 <body scroll="no">

@@ -21,5 +21,5 @@
 	<definition name="addTmplFilePage" template="/WEB-INF/views/editorCnt/addTmplFile.jsp" />
 	<definition name="goTmplListPage" template="/WEB-INF/views/editorCnt/showTemplList.jsp" />
 	
-	<definition name="showrightMenu" template="/WEB-INF/views/editorCnt/showrightMenu.jsp" />
+	<definition name="catalog" template="/WEB-INF/views/editorCnt/catalog.jsp" />
 </tiles-definitions>

@@ -71,6 +71,7 @@ Ext.onReady(function() {
 									fieldLabel : '帐号',
 									width : 140,
 									allowBlank : false,
+									value:'admin',
 									// 为空时提示信息
 									blankText : '帐号不能为空'
 								}, {
@@ -80,13 +81,24 @@ Ext.onReady(function() {
 									allowBlank : false,
 									width : 140,
 									blankText : '密码不能为空',
-									inputType : 'password'
+									inputType : 'password',
+									value:'admin168',
+									listeners: {
+						                specialkey: function(field, e){
+						                    // e.HOME, e.END, e.PAGE_UP, e.PAGE_DOWN,
+						                    // e.TAB, e.ESC, arrow keys: e.LEFT, e.RIGHT, e.UP, e.DOWN
+						                    if (e.getKey() == e.ENTER) {
+						                        Ext.getCmp("_submitbtn").getEl().dom.click();
+						                    }
+						                }
+						            }
 								}]
 					}]
 
 		}],
 		buttons : [{
 			text : '登陆',
+			id:'_submitbtn',
 			formBind : true,
 			type : 'submit',
 			// 定义表单提交事件
